@@ -2,10 +2,11 @@ app.controller('session:create', ['$scope', '$rootScope', '$location', function(
   $scope.formData    = {};
   $scope.processForm = function(){
     $rootScope.actionHelper($scope, $scope.formData, '/api/session', 'POST', function(data){
-      if(data.user){ $rootScope.user = data.user; }
-      // $location.path('/dashboard');
-      window.location.href = '/#/dashboard';
-      location.reload(); // <- hack to force the CSRF Token to hydrate
+      if(data.user){ 
+        $rootScope.csrfToken = data.csrfToken;
+        $rootScope.user = data.user;  
+        $location.path('/dashboard');
+      }
     });
   };
 }]);
@@ -17,6 +18,7 @@ app.controller('session:destroy', ['$scope', '$rootScope', '$location', function
 
   $scope.processForm = function(){
     $rootScope.actionHelper($scope, {}, '/api/session', 'DELETE', function(data){
+      $rootScope.sessionCheck = false;
       delete $rootScope.user;
       $location.path('/');
     });

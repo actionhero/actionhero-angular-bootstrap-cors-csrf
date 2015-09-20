@@ -3,10 +3,13 @@ app.controller('user:create', ['$scope', '$rootScope', '$location', function($sc
   $scope.processForm = function(){
     $rootScope.actionHelper($scope, $scope.formData, '/api/user', 'POST', function(data){
       $rootScope.actionHelper($scope, $scope.formData, '/api/session', 'POST', function(data){
-        if(data.user){ $rootScope.user = data.user; }
-        $location.path('/dashboard');
+        if(data.user){ 
+          $rootScope.csrfToken = data.csrfToken;
+          $rootScope.user = data.user; 
+          $location.path('/dashboard');
+        }
       });
-    });
+    }, null, true);
   };
 }]);
 

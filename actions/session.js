@@ -16,9 +16,13 @@ exports.sessionCreate = {
         if(error){ return next(error); }
         else if(!match){ return next(new Error('password does not match')); }
         else{
-          data.response.user    = user.apiData(api);
-          data.response.success = true;
-          api.session.create(data.connection, user, next);
+          api.session.create(data.connection, user, function(error, sessionData){
+            if(error){ return next(error); }
+            data.response.user      = user.apiData(api);
+            data.response.success   = true;
+            data.response.csrfToken = sessionData.csrfToken;
+            next();
+          });
         }
       });
     })
