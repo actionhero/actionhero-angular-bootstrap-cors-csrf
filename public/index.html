@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+
+    <title>...</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="/images/favicon.ico">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/angular/angular.min.js"></script>
+    <script src="/js/angular/angular-route.min.js"></script>
+
+    <!-- App -->
+    <script src="/js/app/app.js"></script>
+    <script src="/js/app/controllers/main.js"></script>
+    <script src="/js/app/controllers/session.js"></script>
+    <script src="/js/app/controllers/dashboard.js"></script>
+    <script src="/js/app/controllers/user.js"></script>
+    
+  </head>
+
+  <body ng-controller="pageController">
+
+    <header id="nav-container" class="container">
+      <div ng-if="$root.user"  ng-include="'sections/nav-logged-in.html'"></div>        
+      <div ng-if="!$root.user" ng-include="'sections/nav-logged-out.html'"></div>        
+    </header>
+
+    <div id="main" class="container">
+      <div ng-view></div>
+    </div>
+
+    <footer id="footer-container" class="container">
+      <div ng-include="'sections/footer.html'"></div>
+    </footer>
+
+  </body>
+</html>

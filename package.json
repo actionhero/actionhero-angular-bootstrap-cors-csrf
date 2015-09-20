@@ -1,0 +1,28 @@
+{
+  "author": "YOU <YOU@example.com>",
+  "name": "actionhero-angular-bootstrap-cors-csrf",
+  "description": "angular.actionhero.com: Actionhero + Angular + Bootstrap + CORS + CSRF Demo Site",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies": {
+    "actionhero": "12.0.0",
+    "bcrypt": "^0.8.5",
+    "grunt": "latest",
+    "mysql": "^2.9.0",
+    "sequelize": "^3.9.0",
+    "ws": "latest"
+  },
+  "devDependencies": {
+    "mocha": "latest",
+    "should": "latest"
+  },
+  "scripts": {
+    "help": "actionhero help",
+    "start": "actionhero start",
+    "actionhero": "actionhero",
+    "startCluster": "actionhero startCluster",
+    "test": "mocha"
+  }
+}

@@ -1,0 +1,29 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/#/"><img width="30px" src="/images/actionhero.png"/></a>
+    </div>
+
+
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      
+      <ul class="nav navbar-nav">
+        <li ng-class="getNavigationHighlight('dashboard')"><a href="/#/dashboard"><strong>Hello, <span>{{ $root.user.firstName }}</span></strong></a></li>     
+        <li ng-class="getNavigationHighlight('about')"><a href="/#/about">About</a></li>   
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+      <li ng-class="getNavigationHighlight('settings')"><a href="/#/settings"><span class="glyphicon glyphicon-user"></span>Settings</a></li>
+        <li ng-class="getNavigationHighlight('logout')"><a href="/#/logout">log out</a></li>
+      </ul>
+
+    </div>
+  </div>
+</nav>

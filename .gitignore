@@ -1,0 +1,8 @@
+node_modules/*
+log/*
+pids/*
+
+npm-debug.log
+.DS_Store
+.env
+dump.rdb
