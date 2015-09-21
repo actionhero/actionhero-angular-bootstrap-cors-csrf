@@ -13,7 +13,7 @@
             <input type="text" name="lastName" class="form-control" placeholder="chat" ng-model="formData.say">
           </div>
 
-          <button type="submit" class="btn btn-success btn-sm btn-block">
+          <button ng-if='canChat' type="submit" class="btn btn-success btn-sm btn-block">
             <span class="glyphicon glyphicon-flash"></span> Submit!
           </button>
         </form>

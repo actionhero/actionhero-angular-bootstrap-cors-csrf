@@ -3,6 +3,7 @@ app.controller('chat', ['$scope', '$rootScope', '$location', function($scope, $r
   $scope.formData = {};
   $scope.chats = [];
   $scope.room = 'chat';
+  $scope.canChat = false;
 
   $scope.processForm = function(){
     $scope.ws.say($scope.room, $scope.formData.say);
@@ -40,20 +41,29 @@ app.controller('chat', ['$scope', '$rootScope', '$location', function($scope, $r
   
   $scope.ws = new ActionheroClient;
 
-  $scope.ws.on('connected',    function(){ console.log('connected!'); });
-  $scope.ws.on('disconnected', function(){ console.log('disconnected :('); });
+  $scope.ws.on('connected',    function(){ 
+    console.log('connected!'); 
+  });
+  $scope.ws.on('disconnected', function(){
+    $scope.canChat = false; 
+    $rootScope.$apply();
+    console.log('disconnected :('); 
+  });
+
   $scope.ws.on('error',        function(err){ console.log('error', err.stack); });
   $scope.ws.on('reconnect',    function(){ console.log('reconnect'); });
   $scope.ws.on('reconnecting', function(){ console.log('reconnecting'); });    
   $scope.ws.on('welcome',      function(message){ $scope.appendMessage(message); });
   $scope.ws.on('say',          function(message){ $scope.appendMessage(message); });
-  
+
   $scope.ws.connect(function(err, details){
     if(err){
       console.log(err);
     }else{
       $scope.ws.action('session:wsAuthenticate', function(data){
         $scope.ws.roomAdd($scope.room);
+        $scope.canChat = true;
+        $rootScope.$apply();        
       });
     }
   });
