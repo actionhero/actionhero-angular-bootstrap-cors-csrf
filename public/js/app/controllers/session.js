@@ -7,7 +7,7 @@ app.controller('session:create', ['$scope', '$rootScope', '$location', function(
         $rootScope.user = data.user;  
         $location.path('/dashboard');
       }
-    });
+    }, null, true);
   };
 }]);
 
@@ -18,10 +18,7 @@ app.controller('session:destroy', ['$scope', '$rootScope', '$location', function
 
   $scope.processForm = function(){
     $rootScope.actionHelper($scope, {}, '/api/session', 'DELETE', function(data){
-      $rootScope.sessionCheck = false;
-      delete $rootScope.user;
-      delete $rootScope.csrfToken;
-      $location.path('/');
+      location.href = '/';
     });
   };
 }]);

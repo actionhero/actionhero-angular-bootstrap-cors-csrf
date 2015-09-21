@@ -37,6 +37,7 @@ app.run(['$rootScope', '$http', function($rootScope, $http){
 
   $rootScope.sessionCheck = false;
   $rootScope.user         = null;
+  $rootScope.csrfToken    = null;
   $rootScope.routes       = routes;
 
   $rootScope.actionHelper = function($scope, data, path, verb, successCallback, errorCallback, skipSessionCheck){
