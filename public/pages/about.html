@@ -2,8 +2,8 @@
   <h1>I am the about page</h1>
 
   <p>You can see me if you are logged in or if you are logged out</p>
-  <p ng-if='$rootScope.user'>You are currently logged in</p>
-  <p ng-if='!$rootScope.user'>You are currently logged out</p>
+  <p ng-if='$root.user'>You are currently logged in</p>
+  <p ng-if='!$root.user'>You are currently logged out</p>
 
   <h2>Server Status:</h2>
   <pre>{{ serverStatus }}</pre>
