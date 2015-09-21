@@ -78,8 +78,8 @@ exports.production = {
         flatFileCacheDuration : 60,
         padding: null,
         httpHeaders : {
-          'X-Powered-By'                : 'angular.actionherojs.com',
-          'Access-Control-Allow-Origin' : '*',
+          'X-Powered-By'                : api.config.general.serverName,
+          'Access-Control-Allow-Origin' : 'angular.actionherojs.com',
           'Access-Control-Allow-Methods': 'HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS, TRACE',
           'Access-Control-Allow-Headers': 'Content-Type',
         },
