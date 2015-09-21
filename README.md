@@ -64,6 +64,9 @@ Copy the `.env.example` file to `.env` and fill in the data you will need to boo
 - when the session is created of checked, we return the CSRF token (along with some user data) down to the client to save in RAM.
 - `check` is used when the single-page app is hard-reloaded.  If a session cookie is present, the browser asks the server if it is valid, and if so, is returned the valid CSRF token to store in ram again.  This is used when a user returns to their dashboard after being idle for some time.
   - if the session is in-valid, the user it logged out and returned to the homepage
+- there is a speical action for web sockets, which sets `connection.autehenticated`, which is required to access the chat room
+  - this action is not exposed in the routes, so http connections cannot access it.  We make sure of this via `blockedConnectionTypes`
+  - this action will source the fingerprint of the parent http connection, so we can use the same session authentication logic! 
 
 #### `./counfig/routes`
 - We have mapped our user actions to the appropriate routes and HTTP verbs.
@@ -87,6 +90,10 @@ Copy the `.env.example` file to `.env` and fill in the data you will need to boo
   - we auto-append the `$rootScope.csrtToken` to the params if present.
 - `$rootScope.sessionCheck` is a state variable which informs `$rootScope.actionHelper` if have completed our logged-in check (and loading the CSRF token).  If not, and another action is called, we'll sleep 100ms and try again.  
  
+#### chat.js
+- hooking an actionhero ws client into angular is quite simple!  
+  - be sure that you call `$rootScope.$apply()` if you need to re-draw based on an event from websockets.
+
 ## Notes
 
 - CSRF protection can be thought of as a 2-factor key.  The pair of both the sessionID and CSRF token are both required to make request.  One part of the key is stored as a cookie which will persist between page loads, while the other is only stored in RAM within the page.  Since only pages which originate from our domain can make HTTP and API requests, we can be sure that the only way to hold a CSRF token in RAM is to be loading HTML from our domain.  

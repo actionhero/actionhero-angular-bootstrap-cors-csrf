@@ -16,6 +16,7 @@
     <script src="/js/bootstrap/bootstrap.min.js"></script>
     <script src="/js/angular/angular.min.js"></script>
     <script src="/js/angular/angular-route.min.js"></script>
+    <script src="/js/actionhero/actionheroClient.min.js"></script>
 
     <!-- App -->
     <script src="/js/app/app.js"></script>
@@ -23,6 +24,7 @@
     <script src="/js/app/controllers/about.js"></script>
     <script src="/js/app/controllers/dashboard.js"></script>
     <script src="/js/app/controllers/user.js"></script>
+    <script src="/js/app/controllers/chat.js"></script>
     
   </head>
 
@@ -33,8 +35,19 @@
       <div ng-if="!$root.user" ng-include="'sections/nav-logged-out.html'"></div>        
     </header>
 
-    <div id="main" class="container">
-      <div ng-view></div>
+    <div class="container">
+      <div class="row">
+
+        <div id="main" class="col-md-8">
+          <div ng-view></div>
+        </div>
+
+        <div id="chat" class="col-md-4">
+          <div ng-if="$root.user" ng-include="'pages/chat.html'"></div>
+          <div ng-if="!$root.user" ng-include="'pages/no-chat.html'"></div>
+        </div>
+
+      </div>
     </div>
 
     <footer id="footer-container" class="container">

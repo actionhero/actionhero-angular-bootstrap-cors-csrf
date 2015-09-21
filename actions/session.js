@@ -68,3 +68,25 @@ exports.sessionCheck = {
     });
   }
 };
+
+exports.sessionCheck = {
+  name:                   'session:wsAuthenticate',
+  description:            'session:wsAuthenticate',
+  outputExample:          {},
+  blockedConnectionTypes: ['web'],
+
+  inputs: {},
+
+  run: function(api, data, next){
+    api.session.load(data.connection, function(error, sessionData){
+      if(error){ return next(error); }
+      else if(!sessionData){ 
+        return next(new Error('Please log in to continue')); 
+      }else{ 
+        data.connection.authorized = true;
+        data.response.authorized = true;
+        next();
+      }
+    });
+  }
+};
