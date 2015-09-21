@@ -69,7 +69,7 @@ exports.sessionCheck = {
   }
 };
 
-exports.sessionCheck = {
+exports.sessionWSAuthenticate = {
   name:                   'session:wsAuthenticate',
   description:            'session:wsAuthenticate',
   outputExample:          {},
