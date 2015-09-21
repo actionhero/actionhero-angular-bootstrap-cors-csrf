@@ -20,6 +20,7 @@ app.controller('session:destroy', ['$scope', '$rootScope', '$location', function
     $rootScope.actionHelper($scope, {}, '/api/session', 'DELETE', function(data){
       $rootScope.sessionCheck = false;
       delete $rootScope.user;
+      delete $rootScope.csrfToken;
       $location.path('/');
     });
   };
