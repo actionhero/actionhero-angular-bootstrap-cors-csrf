@@ -9,7 +9,6 @@ exports.userCreate = {
     password:    { required: true },
     firstName:   { required: true },
     lastName:    { required: true },
-    // avatar:      { required: false },
   },
 
   run: function(api, data, next){
@@ -60,7 +59,6 @@ exports.userEdit = {
     password:    { required: false },
     firstName:   { required: false },
     lastName:    { required: false },
-    // avatar:      { required: false },
   },
 
   run: function(api, data, next){
