@@ -5,6 +5,7 @@ exports.default = {
       get: [
         { path: '/user',     action: 'user:view' },
         { path: '/docs',     action: 'showDocumentation' },
+        { path: '/status',   action: 'status' },
       ],
 
       post: [

@@ -9,7 +9,6 @@ app.controller('dashboard', ['$scope', '$rootScope', '$location', function($scop
       }
     }
 
-
     $scope.actions = actions;
   });
 }]);
