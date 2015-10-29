@@ -1,4 +1,4 @@
-# Actionhero + Angular + CORS + CSRF
+# Actionhero + Bootstrap + Angular + CORS + CSRF
 *visit www.actionherojs.com for more information*
 
 This example project can be viewed live at [angular.actionherojs.com](http://angular.actionherojs.com)
