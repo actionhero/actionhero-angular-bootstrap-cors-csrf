@@ -7,9 +7,6 @@ exports.task = {
   pluginOptions: {},
 
   run: function(api, params, next){
-    api.chatRoom.broadcast({id: 'CLOCK'}, 'chat', 'the time is: ' + new Date(), function(error){
-      console.log(error);
-      next();
-    });
+    api.chatRoom.broadcast({id: 'CLOCK'}, 'chat', 'the time is: ' + new Date(), next);
   }
 };

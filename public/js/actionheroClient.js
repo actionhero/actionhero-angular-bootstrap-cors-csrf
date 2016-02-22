@@ -1322,12 +1322,8 @@ URL.prototype.toString = function toString(stringify) {
 
   result += url.pathname;
 
-  if (url.query) {
-    if ('object' === typeof url.query) query = stringify(url.query);
-    else query = url.query;
-
-    result += (query.charAt(0) === '?' ? '' : '?') + query;
-  }
+  query = 'object' === typeof url.query ? stringify(url.query) : url.query;
+  if (query) result += '?' !== query.charAt(0) ? '?'+ query : query;
 
   if (url.hash) result += url.hash;
 
@@ -2094,7 +2090,7 @@ Primus.prototype.initialise = function initialise(options) {
    *
    * @api private
    */
-  function offline() {
+  primus.offlineHandler = function offline() {
     if (!primus.online) return; // Already or still offline, bailout.
 
     primus.online = false;
@@ -2107,14 +2103,14 @@ Primus.prototype.initialise = function initialise(options) {
     // when the user goes online, it will attempt to reconnect freshly again.
     //
     primus.recovery.reset();
-  }
+  };
 
   /**
    * Handler for online notifications.
    *
    * @api private
    */
-  function online() {
+  primus.onlineHandler = function online() {
     if (primus.online) return; // Already or still online, bailout.
 
     primus.online = true;
@@ -2123,14 +2119,14 @@ Primus.prototype.initialise = function initialise(options) {
     if (~primus.options.strategy.indexOf('online')) {
       primus.recovery.reconnect();
     }
-  }
+  };
 
   if (window.addEventListener) {
-    window.addEventListener('offline', offline, false);
-    window.addEventListener('online', online, false);
+    window.addEventListener('offline', primus.offlineHandler, false);
+    window.addEventListener('online', primus.onlineHandler, false);
   } else if (document.body.attachEvent){
-    document.body.attachEvent('onoffline', offline);
-    document.body.attachEvent('ononline', online);
+    document.body.attachEvent('onoffline', primus.offlineHandler);
+    document.body.attachEvent('ononline', primus.onlineHandler);
   }
 
   return primus;
@@ -2501,7 +2497,17 @@ Primus.prototype.end = function end(data) {
  */
 Primus.prototype.destroy = destroy('url timers options recovery socket transport transformers', {
   before: 'end',
-  after: 'removeAllListeners'
+  after: ['removeAllListeners', function detach() {
+    if (!this.NETWORK_EVENTS) return;
+
+    if (window.addEventListener) {
+      window.removeEventListener('offline', this.offlineHandler);
+      window.removeEventListener('online', this.onlineHandler);
+    } else if (document.body.attachEvent){
+      document.body.detachEvent('onoffline', this.offlineHandler);
+      document.body.detachEvent('ononline', this.onlineHandler);
+    }
+  }]
 });
 
 /**
@@ -2816,7 +2822,7 @@ Primus.prototype.decoder = function decoder(data, fn) {
 
   fn(err, data);
 };
-Primus.prototype.version = "3.2.3";
+Primus.prototype.version = "4.0.5";
 
 if (
      'undefined' !== typeof document
@@ -2889,9 +2895,10 @@ var ActionheroClient = function(options, client){
   }
 
   if(client){
+    self.externalClient = true;
     self.client = client;
   }
-}
+};
 
 if(typeof Primus === 'undefined'){
   var util = require('util');
@@ -2912,12 +2919,18 @@ ActionheroClient.prototype.defaults = function(){
 ActionheroClient.prototype.connect = function(callback){
   var self = this;
   self.messageCount = 0;
-  
-  if(!self.client){
+
+
+  if(self.client && self.externalClient !== true){
+    self.client.end();
+    self.client.removeAllListeners();
+    delete self.client;
     self.client = Primus.connect(self.options.url, self.options);
-  }else{
+  } else if(self.client && self.externalClient === true){
     self.client.end();
     self.client.open();
+  }else{
+    self.client = Primus.connect(self.options.url, self.options);
   }
 
   self.client.on('open', function(){
@@ -2985,7 +2998,7 @@ ActionheroClient.prototype.configure = function(callback){
     self.fingerprint = details.data.fingerprint;
     self.rooms       = details.data.rooms;
     callback(details);
-  }); 
+  });
 }
 
 ///////////////
@@ -3033,7 +3046,7 @@ ActionheroClient.prototype.action = function(action, params, callback){
   }
   if(!params){ params = {}; }
   params.action = action;
-  
+
   if(this.state !== 'connected'){
     this.actionWeb(params, callback);
   }else{
@@ -3058,12 +3071,20 @@ ActionheroClient.prototype.actionWeb = function(params, callback) {
       callback(response);
     }
   };
-  
-  var method = params.httpMethod || 'POST';
+
+  var method = (params.httpMethod || 'POST').toUpperCase();
   var url = this.options.url + this.options.apiPath + '?action=' + params.action;
+
+  if (method === 'GET') {
+    for (var param in params) {
+      if (~['action', 'httpMethod'].indexOf(param)) continue;
+      url += '&' + param + '=' + params[param];
+    }
+  }
+
   xmlhttp.open(method, url, true);
   xmlhttp.setRequestHeader('Content-Type', 'application/json');
-  xmlhttp.send(JSON.stringify(params)); 
+  xmlhttp.send(JSON.stringify(params));
 }
 
 

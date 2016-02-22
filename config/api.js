@@ -18,8 +18,6 @@ exports.default = {
       lockDuration: 1000 * 10, // 10 seconds
       // Watch for changes in actions and tasks, and reload/restart them on the fly
       developmentMode: true,
-      // Should we run each action within a domain? Makes your app safer but slows it down
-      actionDomains: true,
       // How many pending actions can a single connection be working on
       simultaneousActions: 5,
       // allow connections to be created without remoteIp and remotePort (they will be set to 0)
@@ -43,22 +41,23 @@ exports.default = {
         'log':         [ __dirname + '/../log'          ] ,
         'server':      [ __dirname + '/../servers'      ] ,
         'initializer': [ __dirname + '/../initializers' ] ,
-        'plugin':      [ __dirname + '/../node_modules' ] 
+        'plugin':      [ __dirname + '/../node_modules' ] ,
+        'locale':      [ __dirname + '/../locales'      ]
       },
       // hash containing chat rooms you wish to be created at server boot
       startingChatRooms: {
         // format is {roomName: {authKey, authValue}}
-        //'secureRoom': {authorized: true},
-        'chat': {authorized: true},
+        //'secureRoom': {authorized: true}
+        chat: {authorized: true},
       }
-    }
+    };
   }
-}
+};
 
-exports.production = { 
+exports.production = {
   general: function(api){
-    return {  
+    return {
       developmentMode: false
-    }
+    };
   }
-}
+};

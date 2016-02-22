@@ -3,11 +3,12 @@
   "name": "actionhero-angular-bootstrap-cors-csrf",
   "description": "angular.actionhero.com: Actionhero + Angular + Bootstrap + CORS + CSRF Demo Site",
   "version": "0.0.1",
+  "license": "Apache-2.0",
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4.0.0"
   },
   "dependencies": {
-    "actionhero": "12.0.0",
+    "actionhero": "13.0.5",
     "bcrypt": "^0.8.5",
     "grunt": "latest",
     "mysql": "^2.9.0",
