@@ -26,20 +26,3 @@ exports.default = {
     return redisDetails;
   }
 };
-
-exports.test = {
-  redis: function(api){
-    var pkg = 'fakeredis';
-    if(process.env.FAKEREDIS === 'false'){
-      pkg = 'ioredis';
-    }
-
-    return {
-      pkg: pkg,
-      host: '127.0.0.1',
-      port: 6379,
-      database: 2,
-      options: {},
-    };
-  }
-};

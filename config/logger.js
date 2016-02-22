@@ -48,11 +48,3 @@ exports.default = {
     return logger;
   }
 };
-
-exports.test = {
-  logger: function(api){
-    return {
-      transports: null
-    };
-  }
-};
