@@ -13,19 +13,7 @@ exports.default = {
         bindIP: '0.0.0.0',
         // Enabple TCP KeepAlive pings on each connection?
         setKeepAlive: false
-      }
+      };
     }
   }
-}
-
-exports.test = {
-  servers: {
-    socket: function(api){
-      return {
-        enabled: true,
-        port: 5001,
-        secure: false
-      }
-    }
-  }
-}
+};
