@@ -12,12 +12,12 @@ exports['default'] = {
       Redis = require('fakeredis');
     }
 
+    // create the redis clients
+    // because we are using a cheap heroku redis with a connection limit, we'll use 1 client
+    var client = new Redis({ port: port, host: host, password: password, db: database }),
+
     return {
       '_toExpand': false,
-      // create the redis clients
-      // because we are using a cheap heroku redis with a connection limit, we'll use 1 client
-      var client = new Redis({ port: port, host: host, password: password, db: database }),
-
       client:     client,
       subscriber: client,
       tasks:      client,
