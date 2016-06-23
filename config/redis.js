@@ -14,12 +14,13 @@ exports['default'] = {
 
     // create the redis clients
     // because we are using a cheap heroku redis with a connection limit, we'll use 1 client
-    var client = new Redis({ port: port, host: host, password: password, db: database }),
+    var client     = new Redis({ port: port, host: host, password: password, db: database });
+    var subscriber = new Redis({ port: port, host: host, password: password, db: database });
 
     return {
       '_toExpand': false,
       client:     client,
-      subscriber: client,
+      subscriber: subscriber,
       tasks:      client,
     };
   }
