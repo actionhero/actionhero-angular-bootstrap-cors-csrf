@@ -8,9 +8,11 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "actionhero": "13.0.5",
+    "actionhero": "14.0.x",
     "bcrypt": "^0.8.5",
+    "fakeredis": "^1.0.3",
     "grunt": "latest",
+    "ioredis": "^2.1.0",
     "mysql": "^2.9.0",
     "sequelize": "^3.9.0",
     "ws": "latest"

@@ -1,4 +1,4 @@
-exports.default = {
+exports['default'] = {
   tasks: function(api){
     return {
       // Should this node run a scheduler to promote delayed tasks?
@@ -41,8 +41,21 @@ exports.default = {
       maxEventLoopDelay: 5,
       // When we kill off a taskProcessor, should we disconnect that local redis connection?
       toDisconnectProcessors: true,
-      // What redis server should we connect to for tasks / delayed jobs?
-      redis: api.config.redis,
+      // Customize Resque primitives, replace null with required replacement.
+      resque_overrides: {
+        queue: null,
+        multiWorker: null,
+        scheduler: null
+      }
+    };
+  }
+};
+
+exports.test = {
+  tasks: function(api){
+    return {
+      timeout: 100,
+      checkTimeout: 50
     };
   }
 };
