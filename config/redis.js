@@ -21,7 +21,6 @@ exports['default'] = {
       Redis = require('ioredis');
       client     = new Redis({ port: port, host: host, password: password, db: database });
       subscriber = new Redis({ port: port, host: host, password: password, db: database });
-      tasks      = new Redis({ port: port, host: host, password: password, db: database });
     }else{
       Redis = require('fakeredis');
       client     = Redis.createClient(port, host, {fast: true});
@@ -34,7 +33,7 @@ exports['default'] = {
       // create the redis clients
       client:     client,
       subscriber: subscriber,
-      tasks:      tasks,
+      tasks:      client,
     };
   }
 };
