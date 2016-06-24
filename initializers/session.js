@@ -3,7 +3,7 @@ var crypto = require('crypto');
 module.exports = {
   initialize: function (api, next) {
 
-    var redis = api.config.redis.client;
+    var redis = api.redis.clients.client;
 
     api.session = {
       prefix: 'session:',

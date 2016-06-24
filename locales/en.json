@@ -82,5 +82,6 @@
 	"Unable to remove pidfile": "Unable to remove pidfile",
 	"*** Rebooting due to initializer change (%s) ***": "*** Rebooting due to initializer change (%s) ***",
 	"*** actionhero restarted ***": "*** actionhero restarted ***",
-	"*** rebooting due to config change (%s) ***": "*** rebooting due to config change (%s) ***"
+	"*** rebooting due to config change (%s) ***": "*** rebooting due to config change (%s) ***",
+	"Error: cannot start web server @ 0.0.0.0:8080 => listen EADDRINUSE 0.0.0.0:8080\n    at Server.<anonymous> (/Users/evan/PROJECTS/ah-plugins/actionhero-angular-bootstrap-cors-csrf/node_modules/actionhero/servers/web.js:63:21)\n    at emitOne (events.js:77:13)\n    at Server.emit (events.js:169:7)\n    at emitErrorNT (net.js:1250:8)\n    at nextTickCallbackWith2Args (node.js:442:9)\n    at process._tickDomainCallback (node.js:397:17)": "Error: cannot start web server @ 0.0.0.0:8080 => listen EADDRINUSE 0.0.0.0:8080\n    at Server.<anonymous> (/Users/evan/PROJECTS/ah-plugins/actionhero-angular-bootstrap-cors-csrf/node_modules/actionhero/servers/web.js:63:21)\n    at emitOne (events.js:77:13)\n    at Server.emit (events.js:169:7)\n    at emitErrorNT (net.js:1250:8)\n    at nextTickCallbackWith2Args (node.js:442:9)\n    at process._tickDomainCallback (node.js:397:17)"
 }
