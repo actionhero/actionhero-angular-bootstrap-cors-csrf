@@ -79,5 +79,8 @@
 	"!     at Immediate.Async.drainQueues [as _onImmediate] (/Users/evan/PROJECTS/ah-plugins/actionhero-angular-bootstrap-cors-csrf/node_modules/ioredis/node_modules/bluebird/js/release/async.js:17:14)": "!     at Immediate.Async.drainQueues [as _onImmediate] (/Users/evan/PROJECTS/ah-plugins/actionhero-angular-bootstrap-cors-csrf/node_modules/ioredis/node_modules/bluebird/js/release/async.js:17:14)",
 	"!     at processImmediate [as _immediateCallback] (timers.js:383:17)": "!     at processImmediate [as _immediateCallback] (timers.js:383:17)",
 	"*": "*",
-	"Unable to remove pidfile": "Unable to remove pidfile"
+	"Unable to remove pidfile": "Unable to remove pidfile",
+	"*** Rebooting due to initializer change (%s) ***": "*** Rebooting due to initializer change (%s) ***",
+	"*** actionhero restarted ***": "*** actionhero restarted ***",
+	"*** rebooting due to config change (%s) ***": "*** rebooting due to config change (%s) ***"
 }
