@@ -14,7 +14,6 @@ exports['default'] = {
     if(api.config.redis){
       if(api.config.redis.client){     api.config.redis.client.quit();     }
       if(api.config.redis.subscriber){ api.config.redis.subscriber.quit(); }
-      if(api.config.redis.tasks){      api.config.redis.tasks.quit();      }
     }
 
     if(process.env.FAKEREDIS === 'false' || process.env.REDIS_HOST !== undefined){
