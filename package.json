@@ -1,5 +1,5 @@
 {
-  "author": "YOU <YOU@example.com>",
+  "author": "Evan Tahler <evan@evantahler.com>",
   "name": "actionhero-angular-bootstrap-cors-csrf",
   "description": "angular.actionhero.com: Actionhero + Angular + Bootstrap + CORS + CSRF Demo Site",
   "version": "0.0.1",
@@ -8,10 +8,10 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "actionhero": "14.0.2",
+    "actionhero": "14.0.7",
+    "ah-resque-ui": "0.0.2",
     "bcrypt": "^0.8.5",
     "fakeredis": "^1.0.3",
-    "grunt": "latest",
     "ioredis": "^2.1.0",
     "mysql": "^2.9.0",
     "sequelize": "^3.9.0",
