@@ -1,6 +1,8 @@
 # Actionhero + Bootstrap + Angular + CORS + CSRF
 *visit www.actionherojs.com for more information*
 
+[![Build Status](https://travis-ci.org/evantahler/actionhero-angular-bootstrap-cors-csrf.svg?branch=master)](https://travis-ci.org/evantahler/actionhero-angular-bootstrap-cors-csrf)
+
 This example project can be viewed live at [angular.actionherojs.com](http://angular.actionherojs.com)
 
 This project highlights how to use actionhero to serve the API for a single-page "static file" application run by angular.  The highlights of this project include:
@@ -10,7 +12,7 @@ This project highlights how to use actionhero to serve the API for a single-page
 - creating helpers within angular to wrap actionhero actions (http)
 - creating helpers within angular to wrap websocket communication
 - protecting your single-page application from Cross-Site Forgery (CSRF)
-- protecting your single-page application with CORS 
+- protecting your single-page application with CORS
 
 If you are an actionhero beginner, you can learn the fundamentals at [github.com/evantahler/actionhero-tutorial](https://github.com/evantahler/actionhero-tutorial)
 
@@ -22,7 +24,7 @@ If you are an actionhero beginner, you can learn the fundamentals at [github.com
 `npm install`
 
 ### To Run:
-Copy the `.env.example` file to `.env` and fill in the data you will need to boot the application 
+Copy the `.env.example` file to `.env` and fill in the data you will need to boot the application
 `source .env && npm start`
 
 ## Server Configuration
@@ -60,13 +62,13 @@ Copy the `.env.example` file to `.env` and fill in the data you will need to boo
 - the session data stored in redis also contains a random CSRF token which we will send down to the client later
 
 #### `./actions/session`
-- we have 3 session actions, `create`, `destroy`, and `check`... which do as you would expect, invoking the initializer described above. 
+- we have 3 session actions, `create`, `destroy`, and `check`... which do as you would expect, invoking the initializer described above.
 - when the session is created of checked, we return the CSRF token (along with some user data) down to the client to save in RAM.
 - `check` is used when the single-page app is hard-reloaded.  If a session cookie is present, the browser asks the server if it is valid, and if so, is returned the valid CSRF token to store in ram again.  This is used when a user returns to their dashboard after being idle for some time.
   - if the session is in-valid, the user it logged out and returned to the homepage
 - there is a speical action for web sockets, which sets `connection.autehenticated`, which is required to access the chat room
   - this action is not exposed in the routes, so http connections cannot access it.  We make sure of this via `blockedConnectionTypes`
-  - this action will source the fingerprint of the parent http connection, so we can use the same session authentication logic! 
+  - this action will source the fingerprint of the parent http connection, so we can use the same session authentication logic!
 
 #### `./counfig/routes`
 - We have mapped our user actions to the appropriate routes and HTTP verbs.
@@ -85,11 +87,11 @@ Copy the `.env.example` file to `.env` and fill in the data you will need to boo
 - we have a collection of routes ($rootScope.routes) and define where they can be loaded from, the page title, and if this page requires a logged-in user.  If a logged-out user lands on this URL, they will be rediredted to the home page (defined in `pageController`)
 - the `pageController` also checks to see if the user is logged in or not by hitting the `session:check` action.  This helps us to load user data in to RAM, and modify the navigation bar as needed. This action also sets the CSRF token for use in later actions
 - we define `$rootScope.actionHelper`, which is a simple wrapper around angular's built-in `$http`, so it makes it easier to call actions.
-  - we define a default error behavior to write to `$scope.error`, but allow for custom error callbacks. 
+  - we define a default error behavior to write to `$scope.error`, but allow for custom error callbacks.
   - we handle building up GET url strings dynamically if needed
   - we auto-append the `$rootScope.csrtToken` to the params if present.
 - `$rootScope.sessionCheck` is a state variable which informs `$rootScope.actionHelper` if have completed our logged-in check (and loading the CSRF token).  If not, and another action is called, we'll sleep 100ms and try again.  
- 
+
 #### chat.js
 - hooking an actionhero ws client into angular is quite simple!  
   - be sure that you call `$rootScope.$apply()` if you need to re-draw based on an event from websockets.
