@@ -14,7 +14,7 @@
     "fakeredis": "^1.0.3",
     "ioredis": "^2.1.0",
     "mysql": "^2.9.0",
-    "sequelize": "^3.23.6",
+    "sequelize": "^3.24.0",
     "ws": "latest"
   },
   "devDependencies": {
