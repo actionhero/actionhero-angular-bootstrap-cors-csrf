@@ -12,7 +12,7 @@
     "ah-resque-ui": "0.0.6",
     "bcrypt": "^0.8.5",
     "fakeredis": "^1.0.3",
-    "ioredis": "^2.1.0",
+    "ioredis": "^2.3.0",
     "mysql": "^2.9.0",
     "sequelize": "^3.23.6",
     "ws": "latest"
