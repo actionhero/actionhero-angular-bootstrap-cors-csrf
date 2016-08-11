@@ -16,7 +16,10 @@ var specHelper = {
     var self = this;
     self.api.sequelize.sequelize.query('truncate table users').then(function(){
       callback();
-    }).catch(callback);
+    }).catch(function(error){
+      if(error.match(/ER_NO_SUCH_TABLE/)){ callback(); }
+      else{ callback(error); }
+    });
   },
 
   start: function(callback){
