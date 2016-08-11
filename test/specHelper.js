@@ -17,7 +17,7 @@ var specHelper = {
     self.api.sequelize.sequelize.query('truncate table users').then(function(){
       callback();
     }).catch(function(error){
-      if(error.match(/ER_NO_SUCH_TABLE/)){ callback(); }
+      if(String(error).match(/ER_NO_SUCH_TABLE/)){ callback(); }
       else{ callback(error); }
     });
   },
