@@ -6,6 +6,11 @@ node_js:
   - "4"
   - "6"
 
+env:
+  global:
+    - NODE_ENV=test
+    - CXX=g++-4.8
+
 before_install:
   # Install build tools needed for some NPM packages
   - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
@@ -23,4 +28,3 @@ script: npm run test
 services:
   - redis-server
   - mysql
-  - postgresql
