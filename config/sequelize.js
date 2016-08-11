@@ -14,4 +14,20 @@ exports.default = {
   }
 };
 
+exports.test = {
+  sequelize: function(api){
+    return {
+      "autoMigrate" : false,
+      "loadFixtures": false,
+      "dialect"     : "mysql",
+      "port"        : 3306,
+      "database"    : 'actionhero_test',
+      "host"        : '127.0.0.1',
+      "username"    : 'root',
+      "password"    : null,
+      "logging"     : false,
+    };
+  }
+};
+
 exports.development = exports.default.sequelize();

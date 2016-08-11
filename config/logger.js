@@ -11,7 +11,7 @@ exports.default = {
         return new (winston.transports.Console)({
           colorize: true,
           level: 'info',
-          timestamp: true,
+          timestamp: function(){ return api.id + ' @ ' + new Date().toISOString(); },
         });
       });
     }
@@ -28,11 +28,11 @@ exports.default = {
       }
     }
 
-    logger.transports.push(function(api, winston) {
+    logger.transports.push(function(api, winston){
       return new (winston.transports.File)({
         filename: api.config.general.paths.log[0] + '/' + api.pids.title + '.log',
         level: 'info',
-        timestamp: true
+        timestamp: function(){ return api.id + ' @ ' + new Date().toISOString(); },
       });
     });
 
@@ -46,5 +46,13 @@ exports.default = {
     // logger.colors = {good: 'blue', bad: 'red'};
 
     return logger;
+  }
+};
+
+exports.test = {
+  logger: function(api){
+    return {
+      transports: null
+    };
   }
 };

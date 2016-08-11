@@ -1,0 +1,20 @@
+sudo: true
+
+language: node_js
+
+node_js:
+  - "4"
+  - "6"
+
+before_script:
+  - "mysql -u root -e 'create database actionhero_test'"
+
+os:
+  - linux
+
+script: npm run test
+
+services:
+  - redis-server
+  - mysql
+  - postgresql
