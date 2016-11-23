@@ -1,6 +1,6 @@
 exports.default = {
   servers: {
-    socket: function(api){
+    socket: function (api) {
       return {
         enabled: false,
         // TCP or TLS?
@@ -13,7 +13,7 @@ exports.default = {
         bindIP: '0.0.0.0',
         // Enabple TCP KeepAlive pings on each connection?
         setKeepAlive: false
-      };
+      }
     }
   }
-};
+}
