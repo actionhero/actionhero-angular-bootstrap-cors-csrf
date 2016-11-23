@@ -8,7 +8,7 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "actionhero": "^15.0.1",
+    "actionhero": "^16.0.0",
     "ah-resque-ui": "0.1.1",
     "bcrypt": "^0.8.5",
     "fakeredis": "^1.0.3",
@@ -19,13 +19,27 @@
   },
   "devDependencies": {
     "mocha": "latest",
-    "should": "latest"
+    "should": "latest",
+    "standard": "^8.6.0"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach",
+      "it",
+      "angular",
+      "app",
+      "$"
+    ]
   },
   "scripts": {
     "help": "actionhero help",
     "start": "actionhero start",
     "actionhero": "actionhero",
     "startCluster": "actionhero startCluster",
-    "test": "NODE_ENV=test mocha"
+    "test": "standard && NODE_ENV=test mocha"
   }
 }

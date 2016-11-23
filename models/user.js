@@ -1,72 +1,72 @@
-var bcrypt = require('bcrypt');
-var bcryptComplexity = 10;
+var bcrypt = require('bcrypt')
+var bcryptComplexity = 10
 
-module.exports = function(sequelize, DataTypes){
-  return sequelize.define("User", {
+module.exports = function (sequelize, DataTypes) {
+  return sequelize.define('User', {
     'email': {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: { isEmail: true }, 
+      validate: { isEmail: true }
     },
     'passwordHash': {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: false
     },
     'passwordSalt': {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: false
     },
     'firstName': {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     'lastName': {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     'lastLoginAt': {
       type: DataTypes.DATE,
-      allowNull: true,
-    },
+      allowNull: true
+    }
   }, {
     indexes: [
       {
         unique: true,
         fields: ['email']
-      },
+      }
     ],
 
     instanceMethods: {
-      name: function(){
-        return [this.firstName, this.lastName].join(' ');
+      name: function () {
+        return [this.firstName, this.lastName].join(' ')
       },
 
-      updatePassword: function(pw, callback){
-        var self = this;
-        var salt = bcrypt.genSalt(bcryptComplexity, function(error, salt){
-          if(error){ return callback(error); }
-          bcrypt.hash(pw, salt, function(error, hash){
-            if(error){ return callback(error); }
-            self.passwordHash = hash;
-            self.passwordSalt = salt;
-            callback(null, self);
-          });
-        });
+      updatePassword: function (pw, callback) {
+        var self = this
+        bcrypt.genSalt(bcryptComplexity, function (error, salt) {
+          if (error) { return callback(error) }
+          bcrypt.hash(pw, salt, function (error, hash) {
+            if (error) { return callback(error) }
+            self.passwordHash = hash
+            self.passwordSalt = salt
+            callback(null, self)
+          })
+        })
       },
 
-      checkPassword: function(pw, callback){
-        var self = this;
-        bcrypt.compare(pw, self.passwordHash, callback);
+      checkPassword: function (pw, callback) {
+        var self = this
+        bcrypt.compare(pw, self.passwordHash, callback)
       },
 
-      apiData: function(api){
+      apiData: function (api) {
         return {
-          id:        this.id,
-          email:     this.email,
+          id: this.id,
+          email: this.email,
           firstName: this.firstName,
-          lastName:  this.lastName,
-        };
+          lastName: this.lastName
+        }
       }
     }
-  });
-};
+  })
+}
