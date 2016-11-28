@@ -92,5 +92,7 @@
 	"*** ActionHero Stopped ***": "*** ActionHero Stopped ***",
 	"loading the testServer": "loading the testServer",
 	"*** ActionHero Started ***": "*** ActionHero Started ***",
-	"%s is a required parameter for this action": "%s is a required parameter for this action"
+	"%s is a required parameter for this action": "%s is a required parameter for this action",
+	"unknown action or invalid apiVersion": "unknown action or invalid apiVersion",
+	"both room and message are required": "both room and message are required"
 }
