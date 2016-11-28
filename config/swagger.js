@@ -3,7 +3,7 @@ exports['default'] = {
     return {
       // Should be changed to hit www.yourserver.com.  If this is null, defaults to ip:port from
       // internal values or from hostOverride and portOverride.
-      baseUrl: null,
+      baseUrl: process.env.NODE_ENV === 'production' ? 'angular.actionherojs.com' : null,
       // Specify routes that don't need to be displayed
       ignoreRoutes: [ '/swagger' ],
       // Specify how routes are grouped
