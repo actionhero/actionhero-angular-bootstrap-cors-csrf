@@ -81,7 +81,7 @@ Copy the `.env.example` file to `.env` and fill in the data you will need to boo
 - There is a separate navigation bar depending on if you are logged in or not, but there are some pages both types of users have access to. (this is in `./public/sections`)
 - `./public/index.html` is the only entry-point into the project.  All other pages are loaded in dynamically.
   - we use the `angular-route` plug-in to use ajax-y static URLs
-- `./public/js/app.js` is where the main angular module is configured, and then `./public/js/controlers` contain the logic for each page.
+- `./public/javascript/app.js` is where the main angular module is configured, and then `./public/javascript/controllers` contain the logic for each page.
 
 #### app.js
 - we have a collection of routes ($rootScope.routes) and define where they can be loaded from, the page title, and if this page requires a logged-in user.  If a logged-out user lands on this URL, they will be rediredted to the home page (defined in `pageController`)

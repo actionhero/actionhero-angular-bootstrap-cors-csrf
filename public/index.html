@@ -13,26 +13,26 @@
 
     <!-- Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="/js/bootstrap/bootstrap.min.js"></script>
-    <script src="/js/angular/angular.min.js"></script>
-    <script src="/js/angular/angular-route.min.js"></script>
-    <script src="/js/actionhero/actionheroClient.min.js"></script>
+    <script src="/javascript/bootstrap/bootstrap.min.js"></script>
+    <script src="/javascript/angular/angular.min.js"></script>
+    <script src="/javascript/angular/angular-route.min.js"></script>
+    <script src="/javascript/actionhero/actionheroClient.min.js"></script>
 
     <!-- App -->
-    <script src="/js/app/app.js"></script>
-    <script src="/js/app/controllers/session.js"></script>
-    <script src="/js/app/controllers/about.js"></script>
-    <script src="/js/app/controllers/dashboard.js"></script>
-    <script src="/js/app/controllers/user.js"></script>
-    <script src="/js/app/controllers/chat.js"></script>
-    
+    <script src="/javascript/app/app.js"></script>
+    <script src="/javascript/app/controllers/session.js"></script>
+    <script src="/javascript/app/controllers/about.js"></script>
+    <script src="/javascript/app/controllers/dashboard.js"></script>
+    <script src="/javascript/app/controllers/user.js"></script>
+    <script src="/javascript/app/controllers/chat.js"></script>
+
   </head>
 
   <body ng-controller="pageController">
 
     <header id="nav-container" class="container">
-      <div ng-if="$root.user"  ng-include="'sections/nav-logged-in.html'"></div>        
-      <div ng-if="!$root.user" ng-include="'sections/nav-logged-out.html'"></div>        
+      <div ng-if="$root.user"  ng-include="'sections/nav-logged-in.html'"></div>
+      <div ng-if="!$root.user" ng-include="'sections/nav-logged-out.html'"></div>
     </header>
 
     <div class="container">

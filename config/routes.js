@@ -5,7 +5,8 @@ exports.default = {
       get: [
         { path: '/user', action: 'user:view' },
         { path: '/docs', action: 'showDocumentation' },
-        { path: '/status', action: 'status' }
+        { path: '/status', action: 'status' },
+        { path: '/swagger', action: 'swagger' }
       ],
 
       post: [
@@ -19,8 +20,7 @@ exports.default = {
       ],
 
       delete: [
-        { path: '/session', action: 'session:destroy' },
-        { path: '/registry', action: 'registry:destroy' }
+        { path: '/session', action: 'session:destroy' }
       ]
 
     }
