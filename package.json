@@ -10,12 +10,12 @@
   "dependencies": {
     "actionhero": "^16.0.0",
     "ah-resque-ui": "0.3.0",
-    "ah-swagger-plugin": "^1.0.0",
+    "ah-swagger-plugin": "^1.0.1",
     "bcrypt": "^1.0.0",
     "fakeredis": "^1.0.3",
-    "ioredis": "^2.3.0",
+    "ioredis": "^2.4.3",
     "mysql": "^2.9.0",
-    "sequelize": "^3.24.5",
+    "sequelize": "^3.28.0",
     "ws": "latest"
   },
   "devDependencies": {
