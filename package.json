@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "actionhero": "^16.0.0",
-    "ah-resque-ui": "0.2.0",
+    "ah-resque-ui": "0.3.0",
     "ah-swagger-plugin": "^1.0.0",
     "bcrypt": "^1.0.0",
     "fakeredis": "^1.0.3",
