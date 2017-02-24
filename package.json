@@ -8,7 +8,7 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "actionhero": "^16.0.0",
+    "actionhero": "^16.0.1",
     "ah-resque-ui": "0.3.0",
     "ah-swagger-plugin": "^1.0.1",
     "bcrypt": "^1.0.0",
