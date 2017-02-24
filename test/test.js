@@ -19,7 +19,7 @@ describe('general:applicaiton', function () {
     connection.params = {}
     api.specHelper.runAction('status', connection, function (response) {
       should.not.exist(response.error)
-      response.id.should.equal('test-server')
+      response.id.should.match(/test-server/)
       done()
     })
   })
