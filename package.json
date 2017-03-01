@@ -7,6 +7,10 @@
   "engines": {
     "node": ">=4.0.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/evantahler/actionhero-angular-bootstrap-cors-csrf.git"
+  },
   "dependencies": {
     "actionhero": "^16.0.1",
     "ah-resque-ui": "0.3.0",
@@ -41,6 +45,7 @@
     "start": "actionhero start",
     "actionhero": "actionhero",
     "startCluster": "actionhero startCluster",
-    "test": "standard && NODE_ENV=test mocha"
+    "pretest": "standard",
+    "test": "NODE_ENV=test mocha"
   }
 }
