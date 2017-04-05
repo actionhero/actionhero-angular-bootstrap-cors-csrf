@@ -1,6 +1,4 @@
 // error messages can be strings of objects
-var util = require('util')
-
 exports.default = {
   errors: function (api) {
     return {
@@ -13,28 +11,28 @@ exports.default = {
       serializers: {
         servers: {
           web: function (error) {
-            if (util.isError(error)) {
+            if (error.message) {
               return String(error.message)
             } else {
               return error
             }
           },
           websocket: function (error) {
-            if (util.isError(error)) {
+            if (error.message) {
               return String(error.message)
             } else {
               return error
             }
           },
           socket: function (error) {
-            if (util.isError(error)) {
+            if (error.message) {
               return String(error.message)
             } else {
               return error
             }
           },
           specHelper: function (error) {
-            if (util.isError(error)) {
+            if (error.message) {
               return 'Error: ' + String(error.message)
             } else {
               return error
