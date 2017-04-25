@@ -12,7 +12,7 @@
     "url": "git://github.com/evantahler/actionhero-angular-bootstrap-cors-csrf.git"
   },
   "dependencies": {
-    "actionhero": "^16.0.1",
+    "actionhero": "^17.0.0",
     "ah-resque-ui": "0.3.0",
     "ah-swagger-plugin": "^1.0.1",
     "bcrypt": "^1.0.0",
