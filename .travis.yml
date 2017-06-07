@@ -1,4 +1,4 @@
-sudo: true
+sudo: false
 
 language: node_js
 
@@ -9,13 +9,6 @@ node_js:
 env:
   global:
     - NODE_ENV=test
-    - CXX=g++-4.8
-
-before_install:
-  # Install build tools needed for some NPM packages
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-  - sudo apt-get update -q
-  - sudo apt-get install gcc-4.8 g++-4.8 -y
 
 before_script:
   - "mysql -u root -e 'create database actionhero_test'"

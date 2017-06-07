@@ -46,6 +46,6 @@
     "actionhero": "actionhero",
     "startCluster": "actionhero startCluster",
     "pretest": "standard",
-    "test": "NODE_ENV=test mocha"
+    "test": "mocha"
   }
 }
