@@ -23,8 +23,6 @@ before_script:
 os:
   - linux
 
-script: npm run test
-
 services:
   - redis-server
   - mysql
