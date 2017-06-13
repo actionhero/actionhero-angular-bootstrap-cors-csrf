@@ -1,0 +1,18 @@
+machine:
+  node:
+    version: 8
+  services:
+    - redis
+    - mysql
+  # env:
+  #   CXX: g++-4.8
+# dependencies:
+#   pre:
+#     - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+#     - sudo apt-get update -q
+#     - sudo apt-get install gcc-4.8 g++-4.8 -y
+test:
+  pre:
+    - "mysql -u root -e 'create database actionhero_test'"
+  override:
+    - 'npm test'
