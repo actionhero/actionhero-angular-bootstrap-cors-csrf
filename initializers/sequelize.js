@@ -1,15 +1,20 @@
-var path = require('path')
-var fs = require('fs')
-var Sequelize = require('sequelize')
+const path = require('path')
+const fs = require('fs')
+const Sequelize = require('sequelize')
+const {Initializer, api} = require('actionhero')
 
-module.exports = {
-  loadPriority: 100,
-  startPriority: 100,
+module.exports = class SequelizeInitializer extends Initializer {
+  constructor () {
+    super()
+    this.name = 'sequelize'
+    this.loadPriority = 100
+    this.startPriority = 100
+  }
 
-  initialize: function (api, next) {
+  async initialize () {
     api.models = {}
 
-    var sequelizeInstance = new Sequelize(
+    const sequelizeInstance = new Sequelize(
       api.config.sequelize.database,
       api.config.sequelize.username,
       api.config.sequelize.password,
@@ -17,29 +22,22 @@ module.exports = {
     )
 
     api.sequelize = {
-
       sequelize: sequelizeInstance,
 
-      connect: function (callback) {
-        var dir = path.normalize(api.projectRoot + '/models')
-        fs.readdirSync(dir).forEach(function (file) {
+      connect: async function () {
+        const dir = path.normalize(api.projectRoot + '/models')
+        fs.readdirSync(dir).forEach((file) => {
           var nameParts = file.split('/')
           var name = nameParts[(nameParts.length - 1)].split('.')[0]
           api.models[name] = api.sequelize.sequelize.import(dir + '/' + file)
         })
 
-        api.sequelize.sequelize.sync().then(function () {
-          callback()
-        }).catch(function (error) {
-          callback(error)
-        })
+        await api.sequelize.sequelize.sync()
       }
     }
+  }
 
-    next()
-  },
-
-  start: function (api, next) {
-    api.sequelize.connect(next)
+  async start () {
+    await api.sequelize.connect()
   }
 }

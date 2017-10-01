@@ -41,22 +41,15 @@ module.exports = function (sequelize, DataTypes) {
         return [this.firstName, this.lastName].join(' ')
       },
 
-      updatePassword: function (pw, callback) {
-        var self = this
-        bcrypt.genSalt(bcryptComplexity, function (error, salt) {
-          if (error) { return callback(error) }
-          bcrypt.hash(pw, salt, function (error, hash) {
-            if (error) { return callback(error) }
-            self.passwordHash = hash
-            self.passwordSalt = salt
-            callback(null, self)
-          })
-        })
+      updatePassword: async function (password) {
+        let salt = await bcrypt.genSalt(bcryptComplexity)
+        let hash = await bcrypt.hash(password, salt)
+        this.passwordHash = hash
+        this.passwordSalt = salt
       },
 
-      checkPassword: function (pw, callback) {
-        var self = this
-        bcrypt.compare(pw, self.passwordHash, callback)
+      checkPassword: async function (password, callback) {
+        return bcrypt.compare(password, this.passwordHash)
       },
 
       apiData: function (api) {
