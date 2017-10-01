@@ -6,6 +6,7 @@ module.exports = class ShowDocumentation extends ActionHero.Action {
     super()
     this.name = 'showDocumentation'
     this.description = 'return API documentation'
+    this.middleware = [ 'logged-in-session' ]
   }
 
   outputExample () {

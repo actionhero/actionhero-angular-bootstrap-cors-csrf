@@ -1,127 +1,136 @@
-var should = require('should')
-var path = require('path')
-var specHelper = require(path.join(__dirname, 'specHelper'))
+const should = require('should')
+const ActionHero = require('actionhero')
+
+const actionhero = new ActionHero.Process()
 var api
 var csrfToken
 var connection
 
-describe('general:applicaiton', function () {
-  before(function () { api = specHelper.api })
-  before(function () { connection = new api.specHelper.Connection() })
-  before(function (done) { specHelper.truncate(done) })
+const truncate = async () => {
+  try {
+    await api.sequelize.sequelize.query('truncate table users')
+  } catch (error) {
+    if (!String(error).match(/ER_NO_SUCH_TABLE/)) { throw error }
+  }
+}
 
-  it('can boot', function (done) {
+const login = async (connection, email, password) => {
+  connection.params = {
+    email: email,
+    password: password
+  }
+
+  return api.specHelper.runAction('session:create', connection)
+}
+
+const requestWithLogin = async (email, password, action, params) => {
+  var connection = new api.specHelper.Connection()
+  let loginResponse = await login(connection, email, password)
+  if (loginResponse.error) { throw loginResponse }
+  connection.params = params
+  return api.specHelper.runAction(action, connection)
+}
+
+describe('general:applicaiton', () => {
+  before(async () => {
+    api = await actionhero.start()
+    await truncate()
+    connection = new api.specHelper.Connection()
+  })
+
+  after(async () => { await actionhero.stop() })
+
+  it('can boot', () => {
     api.running.should.equal(true)
-    done()
   })
 
-  it('can access unprotected actions without logging in', function (done) {
+  it('can access unprotected actions without logging in', async () => {
     connection.params = {}
-    api.specHelper.runAction('status', connection, function (response) {
-      should.not.exist(response.error)
-      response.id.should.match(/test-server/)
-      done()
-    })
+    let response = await api.specHelper.runAction('status', connection)
+    should.not.exist(response.error)
+    response.id.should.match(/test-server/)
   })
 
-  it('cannot access protected actions without logging in', function (done) {
+  it('cannot access protected actions without logging in', async () => {
     connection.params = {}
-    api.specHelper.runAction('showDocumentation', connection, function (response) {
-      response.error.should.equal('Error: Please log in to continue')
-      done()
-    })
+    let response = await api.specHelper.runAction('showDocumentation', connection)
+    response.error.should.equal('Error: Please log in to continue')
   })
 
-  it('can create a user (success)', function (done) {
+  it('can create a user (success)', async () => {
     connection.params = {
       firstName: 'first',
       lastName: 'last',
       email: 'fake@fake.com',
       password: 'password'
     }
-    api.specHelper.runAction('user:create', connection, function (response) {
-      should.not.exist(response.error)
-      should.exist(response.user)
-      done()
-    })
+    let response = await api.specHelper.runAction('user:create', connection)
+    should.not.exist(response.error)
+    should.exist(response.user)
   })
 
-  it('can create a user (fail, duplicate)', function (done) {
+  it('can create a user (fail, duplicate)', async () => {
     connection.params = {
       firstName: 'first',
       lastName: 'last',
       email: 'fake@fake.com',
-      password: 'password'
+      password: 'otherpassword'
     }
-    api.specHelper.runAction('user:create', connection, function (response) {
-      response.error.should.equal('Error: users_email must be unique')
-      should.not.exist(response.user)
-      done()
-    })
+    let response = await api.specHelper.runAction('user:create', connection)
+    response.error.should.equal('Error: users_email must be unique')
+    should.not.exist(response.user)
   })
 
-  it('can create a user (fail, missing param)', function (done) {
+  it('can create a user (fail, missing param)', async () => {
     connection.params = {
       firstName: 'first',
       email: 'fake@fake.com',
       password: 'password'
     }
-    api.specHelper.runAction('user:create', connection, function (response) {
-      response.error.should.equal('Error: lastName is a required parameter for this action')
-      should.not.exist(response.user)
-      done()
-    })
+    let response = await api.specHelper.runAction('user:create', connection)
+    response.error.should.equal('Error: lastName is a required parameter for this action')
+    should.not.exist(response.user)
   })
 
-  it('can log in', function (done) {
+  it('can log in', async () => {
     connection.params = {
       email: 'fake@fake.com',
       password: 'password'
     }
-    api.specHelper.runAction('session:create', connection, function (response) {
-      should.not.exist(response.error)
-      should.exist(response.user)
-      should.exist(response.csrfToken)
-      csrfToken = response.csrfToken
-      done()
-    })
+    let response = await api.specHelper.runAction('session:create', connection)
+    should.not.exist(response.error)
+    should.exist(response.user)
+    should.exist(response.csrfToken)
+    csrfToken = response.csrfToken
   })
 
-  it('can view my user', function (done) {
+  it('can view my user', async () => {
     connection.params = {csrfToken: csrfToken}
-    api.specHelper.runAction('user:view', connection, function (response) {
-      should.not.exist(response.error)
-      should.exist(response.user)
-      done()
-    })
+    let response = await api.specHelper.runAction('user:view', connection)
+    should.not.exist(response.error)
+    should.exist(response.user)
   })
 
-  it('can edit my user', function (done) {
+  it('can edit my user', async () => {
     connection.params = {
       csrfToken: csrfToken,
       firstName: 'newName'
     }
-    api.specHelper.runAction('user:edit', connection, function (response) {
-      should.not.exist(response.error)
-      should.exist(response.user)
-      response.user.firstName.should.equal('newName')
-      done()
-    })
+    let response = await api.specHelper.runAction('user:edit', connection)
+    should.not.exist(response.error)
+    should.exist(response.user)
+    response.user.firstName.should.equal('newName')
   })
 
-  it('can access protected actions when logged in + csrf', function (done) {
+  it('can access protected actions when logged in + csrf', async () => {
     connection.params = { csrfToken: csrfToken }
-    api.specHelper.runAction('showDocumentation', connection, function (response) {
-      should.not.exist(response.error)
-      done()
-    })
+    let response = await api.specHelper.runAction('showDocumentation', connection)
+    should.not.exist(response.error)
   })
 
-  it('cannot access protected actions when logged in without csrf', function (done) {
+  it('cannot access protected actions when logged in without csrf', async () => {
     connection.params = {}
-    api.specHelper.runAction('showDocumentation', connection, function (response) {
-      response.error.should.equal('Error: CSRF error')
-      done()
-    })
+    let response = await api.specHelper.runAction('showDocumentation', connection)
+    response.error.should.equal('Error: CSRF error')
   })
 })
