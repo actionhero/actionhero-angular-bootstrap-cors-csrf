@@ -10,7 +10,7 @@ const truncate = async () => {
   try {
     await api.sequelize.sequelize.query('truncate table users')
   } catch (error) {
-    if (!String(error).match(/ER_NO_SUCH_TABLE/)) { throw error }
+    if (!String(error).match(/Table .* doesn't exist/)) { throw error }
   }
 }
 
