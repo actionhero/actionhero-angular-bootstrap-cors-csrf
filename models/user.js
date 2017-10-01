@@ -2,7 +2,7 @@ var bcrypt = require('bcrypt')
 var bcryptComplexity = 10
 
 module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('User', {
+  const User = sequelize.define('User', {
     'email': {
       type: DataTypes.STRING,
       allowNull: false,
@@ -34,32 +34,32 @@ module.exports = function (sequelize, DataTypes) {
         unique: true,
         fields: ['email']
       }
-    ],
-
-    instanceMethods: {
-      name: function () {
-        return [this.firstName, this.lastName].join(' ')
-      },
-
-      updatePassword: async function (password) {
-        let salt = await bcrypt.genSalt(bcryptComplexity)
-        let hash = await bcrypt.hash(password, salt)
-        this.passwordHash = hash
-        this.passwordSalt = salt
-      },
-
-      checkPassword: async function (password, callback) {
-        return bcrypt.compare(password, this.passwordHash)
-      },
-
-      apiData: function (api) {
-        return {
-          id: this.id,
-          email: this.email,
-          firstName: this.firstName,
-          lastName: this.lastName
-        }
-      }
-    }
+    ]
   })
+
+  User.prototype.name = function () {
+    return [this.firstName, this.lastName].join(' ')
+  }
+
+  User.prototype.updatePassword = async function (password) {
+    let salt = await bcrypt.genSalt(bcryptComplexity)
+    let hash = await bcrypt.hash(password, salt)
+    this.passwordHash = hash
+    this.passwordSalt = salt
+  }
+
+  User.prototype.checkPassword = async function (password, callback) {
+    return bcrypt.compare(password, this.passwordHash)
+  }
+
+  User.prototype.apiData = function (api) {
+    return {
+      id: this.id,
+      email: this.email,
+      firstName: this.firstName,
+      lastName: this.lastName
+    }
+  }
+
+  return User
 }

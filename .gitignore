@@ -6,4 +6,4 @@ npm-debug.log
 .DS_Store
 .env
 dump.rdb
-public/javascript/actionhero
+public/javascript/ActionheroWebsocketClient*

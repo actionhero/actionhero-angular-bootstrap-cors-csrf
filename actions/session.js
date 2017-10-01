@@ -4,6 +4,7 @@ exports.SessionCreate = class SessionCreate extends Action {
   constructor () {
     super()
     this.name = 'session:create'
+    this.description = this.name
     this.inputs = {
       email: { required: true },
       password: { required: true }
@@ -29,6 +30,7 @@ exports.SessionDestroy = class SessionDestroy extends Action {
   constructor () {
     super()
     this.name = 'session:destroy'
+    this.description = this.name
     this.inputs = {}
   }
 
@@ -43,6 +45,7 @@ exports.SessionCheck = class SessionCheck extends Action {
   constructor () {
     super()
     this.name = 'session:check'
+    this.description = this.name
     this.inputs = {}
   }
 
@@ -64,6 +67,7 @@ exports.SessionWSAuthenticate = class SessionWSAuthenticate extends Action {
   constructor () {
     super()
     this.name = 'session:wsAuthenticate'
+    this.description = this.name
     this.inputs = {}
     this.blockedConnectionTypes = ['web']
   }

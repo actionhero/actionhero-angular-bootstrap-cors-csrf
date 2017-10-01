@@ -1,6 +1,6 @@
 'use strict'
 
-const ActionHero = require('./../index.js')
+const ActionHero = require('actionhero')
 const path = require('path')
 const packageJSON = require(path.normalize(path.join(__dirname, '..', 'package.json')))
 

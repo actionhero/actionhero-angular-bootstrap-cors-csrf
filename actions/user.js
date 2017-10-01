@@ -4,6 +4,7 @@ exports.UserCreate = class UserCreate extends Action {
   constructor () {
     super()
     this.name = 'user:create'
+    this.description = this.name
     this.inputs = {
       email: { required: true },
       password: { required: true },
@@ -25,6 +26,7 @@ exports.UserView = class UserView extends Action {
   constructor () {
     super()
     this.name = 'user:view'
+    this.description = this.name
     this.middleware = [ 'logged-in-session' ]
     this.inputs = {}
   }
@@ -40,6 +42,7 @@ exports.UserEdit = class UserEdit extends Action {
   constructor () {
     super()
     this.name = 'user:edit'
+    this.description = this.name
     this.middleware = [ 'logged-in-session' ]
     this.inputs = {
       email: { required: false },

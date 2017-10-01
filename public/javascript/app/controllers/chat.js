@@ -38,7 +38,7 @@ app.controller('chat', ['$scope', '$rootScope', '$location', function ($scope, $
     $rootScope.$apply()
   }
 
-  $scope.ws = new ActionheroClient() // eslint-disable-line
+  $scope.ws = new ActionheroWebsocketClient() // eslint-disable-line
 
   $scope.ws.on('connected', function () {
     console.log('connected!')
