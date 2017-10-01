@@ -14,23 +14,6 @@ const truncate = async () => {
   }
 }
 
-const login = async (connection, email, password) => {
-  connection.params = {
-    email: email,
-    password: password
-  }
-
-  return api.specHelper.runAction('session:create', connection)
-}
-
-const requestWithLogin = async (email, password, action, params) => {
-  var connection = new api.specHelper.Connection()
-  let loginResponse = await login(connection, email, password)
-  if (loginResponse.error) { throw loginResponse }
-  connection.params = params
-  return api.specHelper.runAction(action, connection)
-}
-
 describe('general:applicaiton', () => {
   before(async () => {
     api = await actionhero.start()
