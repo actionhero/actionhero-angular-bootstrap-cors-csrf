@@ -12,20 +12,18 @@
     "url": "git://github.com/evantahler/actionhero-angular-bootstrap-cors-csrf.git"
   },
   "dependencies": {
-    "actionhero": "^17.0.0",
-    "ah-resque-ui": "0.4.0",
-    "ah-swagger-plugin": "^1.0.1",
-    "bcrypt": "^1.0.0",
+    "actionhero": "^18.0.0-beta.2",
+    "bcrypt": "^1.0.3",
     "fakeredis": "^2.0.0",
-    "ioredis": "^3.0.0",
-    "mysql": "^2.9.0",
-    "sequelize": "^4.0.0",
-    "ws": "latest"
+    "ioredis": "^3.1.4",
+    "mysql2": "^1.4.2",
+    "sequelize": "^4.13.1",
+    "ws": "^3.2.0"
   },
   "devDependencies": {
     "mocha": "latest",
     "should": "latest",
-    "standard": "^10.0.0"
+    "standard": "^10.0.3"
   },
   "standard": {
     "globals": [
@@ -46,6 +44,6 @@
     "actionhero": "actionhero",
     "startCluster": "actionhero startCluster",
     "pretest": "standard",
-    "test": "mocha"
+    "test": "NODE_ENV=test mocha"
   }
 }

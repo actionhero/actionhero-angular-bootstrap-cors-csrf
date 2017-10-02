@@ -1,12 +1,33 @@
-exports.showDocumentation = {
-  name: 'showDocumentation',
-  description: 'return API documentation',
-  middleware: [ 'logged-in-session' ],
+'use strict'
+const ActionHero = require('actionhero')
 
-  outputExample: {},
+module.exports = class ShowDocumentation extends ActionHero.Action {
+  constructor () {
+    super()
+    this.name = 'showDocumentation'
+    this.description = 'return API documentation'
+    this.middleware = [ 'logged-in-session' ]
+  }
 
-  run: function (api, data, next) {
-    data.response.documentation = api.documentation.documentation
-    next()
+  outputExample () {
+    return {
+      'documentation': {
+        'status': {
+          '1': {
+            'name': 'status',
+            'version': 1,
+            'description': 'I will return some basic information about the API',
+            'inputs': {
+
+            }
+          }
+        }
+      }
+    }
+  }
+
+  run ({response}) {
+    const {documentation} = ActionHero.api
+    response.documentation = documentation.documentation
   }
 }

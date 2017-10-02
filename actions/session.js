@@ -1,87 +1,83 @@
-exports.sessionCreate = {
-  name: 'session:create',
-  description: 'session:create',
-  outputExample: {},
+const {Action, api} = require('actionhero')
 
-  inputs: {
-    email: { required: true },
-    password: { required: true }
-  },
+exports.SessionCreate = class SessionCreate extends Action {
+  constructor () {
+    super()
+    this.name = 'session:create'
+    this.description = this.name
+    this.inputs = {
+      email: { required: true },
+      password: { required: true }
+    }
+  }
 
-  run: function (api, data, next) {
+  async run (data) {
     data.response.success = false
-    api.models.user.findOne({where: {email: data.params.email}}).then(function (user) {
-      if (!user) { return next(new Error('user not found')) }
-      user.checkPassword(data.params.password, function (error, match) {
-        if (error) { return next(error) } else if (!match) { return next(new Error('password does not match')) } else {
-          api.session.create(data.connection, user, function (error, sessionData) {
-            if (error) { return next(error) }
-            data.response.user = user.apiData(api)
-            data.response.success = true
-            data.response.csrfToken = sessionData.csrfToken
-            next()
-          })
-        }
-      })
-    })
-    .catch(next)
+    let user = await api.models.user.findOne({where: {email: data.params.email}})
+    if (!user) { throw new Error('user not found') }
+
+    let match = await user.checkPassword(data.params.password)
+    if (!match) { throw new Error('password does not match') }
+
+    let sessionData = await api.session.create(data.connection, user)
+    data.response.user = user.apiData(api)
+    data.response.success = true
+    data.response.csrfToken = sessionData.csrfToken
   }
 }
 
-exports.sessionDestroy = {
-  name: 'session:destroy',
-  description: 'session:destroy',
-  outputExample: {},
+exports.SessionDestroy = class SessionDestroy extends Action {
+  constructor () {
+    super()
+    this.name = 'session:destroy'
+    this.description = this.name
+    this.inputs = {}
+  }
 
-  inputs: {},
-
-  run: function (api, data, next) {
+  async run (data) {
     data.response.success = false
-    api.session.destroy(data.connection, next)
+    await api.session.destroy(data.connection)
+    data.response.success = true
   }
 }
 
-exports.sessionCheck = {
-  name: 'session:check',
-  description: 'session:check',
-  outputExample: {},
+exports.SessionCheck = class SessionCheck extends Action {
+  constructor () {
+    super()
+    this.name = 'session:check'
+    this.description = this.name
+    this.inputs = {}
+  }
 
-  inputs: {},
+  async run (data) {
+    data.response.success = false
+    let sessionData = await api.session.load(data.connection)
+    if (!sessionData) { throw new Error('Please log in to continue') }
 
-  run: function (api, data, next) {
-    api.session.load(data.connection, function (error, sessionData) {
-      if (error) { return next(error) } else if (!sessionData) {
-        return next(new Error('Please log in to continue'))
-      } else {
-        api.models.user.findOne({where: {id: sessionData.userId}}).then(function (user) {
-          if (!user) { return next(new Error('user not found')) }
-          data.response.user = user.apiData(api)
-          data.response.csrfToken = sessionData.csrfToken
-          data.response.success = true
-          next()
-        }).catch(next)
-      }
-    })
+    let user = await api.models.user.findOne({where: {id: sessionData.userId}})
+    if (!user) { throw new Error('user not found') }
+
+    data.response.user = user.apiData(api)
+    data.response.csrfToken = sessionData.csrfToken
+    data.response.success = true
   }
 }
 
-exports.sessionWSAuthenticate = {
-  name: 'session:wsAuthenticate',
-  description: 'session:wsAuthenticate',
-  outputExample: {},
-  blockedConnectionTypes: ['web'],
+exports.SessionWSAuthenticate = class SessionWSAuthenticate extends Action {
+  constructor () {
+    super()
+    this.name = 'session:wsAuthenticate'
+    this.description = this.name
+    this.inputs = {}
+    this.blockedConnectionTypes = ['web']
+  }
 
-  inputs: {},
-
-  run: function (api, data, next) {
-    api.session.load(data.connection, function (error, sessionData) {
-      if (error) { return next(error) } else if (!sessionData) {
-        return next(new Error('Please log in to continue'))
-      } else {
-        data.connection.authorized = true
-        data.response.authorized = true
-        next()
-      }
-    })
+  async run (data) {
+    data.response.success = false
+    let sessionData = await api.session.load(data.connection)
+    if (!sessionData) { throw new Error('Please log in to continue') }
+    data.connection.authorized = true
+    data.response.authorized = true
+    data.response.success = true
   }
 }

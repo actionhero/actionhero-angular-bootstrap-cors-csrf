@@ -1,82 +1,73 @@
-exports.userCreate = {
-  name: 'user:create',
-  description: 'user:create',
-  outputExample: {},
-  middleware: [],
+const {Action, api} = require('actionhero')
 
-  inputs: {
-    email: { required: true },
-    password: { required: true },
-    firstName: { required: true },
-    lastName: { required: true }
-  },
+exports.UserCreate = class UserCreate extends Action {
+  constructor () {
+    super()
+    this.name = 'user:create'
+    this.description = this.name
+    this.inputs = {
+      email: { required: true },
+      password: { required: true },
+      firstName: { required: true },
+      lastName: { required: true }
+    }
+  }
 
-  run: function (api, data, next) {
-    var user = api.models.user.build(data.params)
-    user.updatePassword(data.params.password, function (error) {
-      if (error) { return next(error) }
+  async run (data) {
+    let user = await api.models.user.build(data.params)
+    await user.updatePassword(data.params.password)
 
-      user.save().then(
-        api.models.user.findOne({where: {email: data.params.email}})
-      ).then(function (userObj) {
-        data.response.user = userObj.apiData(api)
-        next(error)
-      })
-      .catch(function (errors) {
-        next(errors.errors[0].message)
-      })
-    })
+    try {
+      await user.save()
+    } catch (error) {
+      throw error.errors[0]
+    }
+
+    await user.reload()
+    data.response.user = user.apiData(api)
   }
 }
 
-exports.userView = {
-  name: 'user:view',
-  description: 'user:view',
-  outputExample: {},
-  middleware: [ 'logged-in-session' ],
+exports.UserView = class UserView extends Action {
+  constructor () {
+    super()
+    this.name = 'user:view'
+    this.description = this.name
+    this.middleware = [ 'logged-in-session' ]
+    this.inputs = {}
+  }
 
-  inputs: {},
-
-  run: function (api, data, next) {
-    api.models.user.findOne({where: {id: data.session.userId}}).then(function (user) {
-      if (!user) { return next(new Error('user not found')) }
-      data.response.user = user.apiData(api)
-      next()
-    })
-    .catch(next)
+  async run (data) {
+    let user = await api.models.user.findOne({where: {id: data.session.userId}})
+    if (!user) { throw new Error('user not found') }
+    data.response.user = user.apiData(api)
   }
 }
 
-exports.userEdit = {
-  name: 'user:edit',
-  description: 'user:edit',
-  outputExample: {},
-  middleware: [ 'logged-in-session' ],
+exports.UserEdit = class UserEdit extends Action {
+  constructor () {
+    super()
+    this.name = 'user:edit'
+    this.description = this.name
+    this.middleware = [ 'logged-in-session' ]
+    this.inputs = {
+      email: { required: false },
+      password: { required: false },
+      firstName: { required: false },
+      lastName: { required: false }
+    }
+  }
 
-  inputs: {
-    email: { required: false },
-    password: { required: false },
-    firstName: { required: false },
-    lastName: { required: false }
-  },
+  async run (data) {
+    let user = await api.models.user.findOne({where: {id: data.session.userId}})
+    if (!user) { throw new Error('user not found') }
 
-  run: function (api, data, next) {
-    api.models.user.findOne({where: {id: data.session.userId}}).then(function (user) {
-      if (!user) { return next(new Error('user not found')) }
-      user.updateAttributes(data.params).then(function () {
-        data.response.user = user.apiData(api)
-        if (data.params.password) {
-          user.updatePassword(data.params.password, function (error) {
-            if (error) { return next(error) }
-            user.save().then(function () {
-              next()
-            }).catch(next)
-          })
-        } else {
-          next()
-        }
-      }).catch(next)
-    })
-    .catch(next)
+    await user.updateAttributes(data.params)
+    data.response.user = user.apiData(api)
+
+    if (data.params.password) {
+      await user.updatePassword(data.params.password)
+      await user.save()
+    }
   }
 }

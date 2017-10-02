@@ -116,5 +116,5 @@ curl -X PUT -H "Content-Type: application/json" --cookie 'sessionID=d8875cfc42a0
 
 
 ## Next Steps
-- tests
+- client shitests
 - https cookies (and an HTTPS-only site and API)
