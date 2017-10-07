@@ -24,7 +24,7 @@ module.exports = class SequelizeInitializer extends Initializer {
     api.sequelize = {
       sequelize: sequelizeInstance,
 
-      connect: async function () {
+      connect: async () => {
         const dir = path.normalize(api.projectRoot + '/models')
         fs.readdirSync(dir).forEach((file) => {
           var nameParts = file.split('/')
@@ -33,11 +33,19 @@ module.exports = class SequelizeInitializer extends Initializer {
         })
 
         await api.sequelize.sequelize.sync()
+      },
+
+      disconnect: async () => {
+        await api.sequelize.sequelize.close()
       }
     }
   }
 
   async start () {
     await api.sequelize.connect()
+  }
+
+  async stop () {
+    await api.sequelize.disconnect()
   }
 }

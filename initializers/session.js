@@ -66,7 +66,4 @@ module.exports = class SessionInitializer extends Initializer {
     api.actions.addMiddleware(api.session.middleware['logged-in-session'])
     api.params.globalSafeParams.push('csrfToken')
   }
-
-  start () { }
-  stop () { }
 }
