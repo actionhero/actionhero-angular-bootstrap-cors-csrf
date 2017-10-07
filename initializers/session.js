@@ -53,7 +53,10 @@ module.exports = class SessionInitializer extends Initializer {
           preProcessor: async (data) => {
             const sessionData = await api.session.load(data.connection)
             if (!sessionData) { throw new Error('Please log in to continue') }
-            if (!data.params.csrfToken || data.params.csrfToken !== sessionData.csrfToken) { throw new Error('CSRF error') }
+            if (
+              (data.action.indexOf('resque') < 0) &&
+              (!data.params.csrfToken || data.params.csrfToken !== sessionData.csrfToken)
+            ) { throw new Error('CSRF error') }
 
             data.session = sessionData
             const key = api.session.prefix + data.connection.fingerprint
