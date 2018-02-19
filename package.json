@@ -24,7 +24,7 @@
   "devDependencies": {
     "mocha": "latest",
     "should": "^13.1.1",
-    "standard": "^10.0.3"
+    "standard": "^11.0.0"
   },
   "standard": {
     "globals": [
