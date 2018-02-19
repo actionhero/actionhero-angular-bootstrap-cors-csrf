@@ -69,7 +69,7 @@ app.run(['$rootScope', '$http', function ($rootScope, $http) {
       $http({
         method: verb,
         url: path,
-        data: $.param(data),  // pass in data as strings
+        data: $.param(data), // pass in data as strings
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       }).success(function (data) {
         successCallback(data)
