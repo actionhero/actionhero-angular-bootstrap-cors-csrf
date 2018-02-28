@@ -21,7 +21,7 @@ exports.test = {
       'loadFixtures': false,
       'dialect': 'mysql',
       'port': 3306,
-      'database': 'actionhero_test',
+      'database': 'TEST_DB',
       'host': '127.0.0.1',
       'username': 'root',
       'password': null,
