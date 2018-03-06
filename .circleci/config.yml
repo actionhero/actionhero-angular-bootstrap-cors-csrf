@@ -7,9 +7,9 @@ refrences:
 
   images: &images
     docker:
-      - image: circleci/node:8
-          environment:
-            NODE_ENV: test
+      - image: circleci/node:8:
+        environment:
+          NODE_ENV: test
       - image: redis:4
       - image: circleci/mysql:5
 
