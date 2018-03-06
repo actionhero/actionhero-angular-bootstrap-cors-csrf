@@ -8,6 +8,8 @@ refrences:
   images: &images
     docker:
       - image: circleci/node:8
+          environment:
+            NODE_ENV: test
       - image: redis:4
       - image: circleci/mysql:5
 
@@ -71,7 +73,5 @@ workflows:
     jobs:
       - build
       - test:
-          environment:
-            NODE_ENV: test
           requires:
             - build
