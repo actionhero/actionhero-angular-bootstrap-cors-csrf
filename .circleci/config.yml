@@ -60,7 +60,6 @@ jobs:
           command: ./node_modules/.bin/mocha test --reporter mocha-junit-reporter
           environment:
             MOCHA_FILE: ./junit/mocha.xml
-            NODE_ENV: test
       - store_test_results:
           path: ./junit
       - store_artifacts:
@@ -72,5 +71,7 @@ workflows:
     jobs:
       - build
       - test:
+          environment:
+            NODE_ENV: test
           requires:
             - build
