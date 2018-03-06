@@ -7,9 +7,7 @@ refrences:
 
   images: &images
     docker:
-      - image: circleci/node:8:
-        environment:
-          NODE_ENV: test
+      - image: circleci/node:8
       - image: redis:4
       - image: circleci/mysql:5
 
@@ -62,6 +60,7 @@ jobs:
           command: ./node_modules/.bin/mocha test --reporter mocha-junit-reporter
           environment:
             MOCHA_FILE: ./junit/mocha.xml
+            NODE_ENV: test
       - store_test_results:
           path: ./junit
       - store_artifacts:
