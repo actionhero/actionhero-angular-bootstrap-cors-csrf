@@ -2,7 +2,7 @@
 
 *visit www.actionherojs.com for more information*
 
-[![Build Status](https://circleci.com/gh/actionhero/actionhero-angular-bootstrap-cors-csrf.png)](https://circleci.com/gh/actionhero/actionhero-angular-bootstrap-cors-csrf.png)
+[![CircleCI](https://circleci.com/gh/actionhero/actionhero-angular-bootstrap-cors-csrf.svg?style=svg)](https://circleci.com/gh/actionhero/actionhero-angular-bootstrap-cors-csrf)
 [![Greenkeeper badge](https://badges.greenkeeper.io/actionhero/actionhero-angular-bootstrap-cors-csrf.svg)](https://greenkeeper.io/)
 
 This example project can be viewed live at [angular.actionherojs.com](http://angular.actionherojs.com)
