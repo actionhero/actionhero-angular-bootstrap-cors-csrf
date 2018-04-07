@@ -14,7 +14,7 @@
   "dependencies": {
     "actionhero": "^18.1.2",
     "ah-resque-ui": "^0.5.4",
-    "bcrypt": "^1.0.3",
+    "bcrypt": "^2.0.0",
     "fakeredis": "^2.0.0",
     "ioredis": "^3.2.2",
     "mysql2": "^1.5.2",
