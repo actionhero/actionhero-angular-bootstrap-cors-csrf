@@ -1,17 +1,19 @@
-var path = require('path')
+'use strict'
 
-exports.default = {
-  general: function (api) {
+const path = require('path')
+
+exports['default'] = {
+  general: (api) => {
+    const packageJSON = require(api.projectRoot + path.sep + 'package.json')
+
     return {
-      apiVersion: '0.0.1',
-      serverName: 'actionhero API',
+      apiVersion: packageJSON.version,
+      serverName: packageJSON.name,
       // id can be set here, or it will be generated dynamically.
       //  Be sure that every server you run has a unique ID (which will happen when generated dynamically)
       //  id: 'myActionHeroServer',
       // A unique token to your application that servers will use to authenticate to each other
       serverToken: 'change-me',
-      // The welcome message seen by TCP and webSocket clients upon connection
-      welcomeMessage: 'Hello! Welcome to the actionhero api',
       // the redis prefix for actionhero's cache objects
       cachePrefix: 'actionhero:cache:',
       // the redis prefix for actionhero's cache/lock objects
@@ -33,13 +35,15 @@ exports.default = {
       // The default filetype to server when a user requests a directory
       directoryFileType: 'index.html',
       // What log-level should we use for file requests?
-      fileRequestLogLevel: 'debug',
-      // The default priority level given to middleware of all types (action, connection, and say)
+      fileRequestLogLevel: 'info',
+      // The default priority level given to middleware of all types (action, connection, say, and task)
       defaultMiddlewarePriority: 100,
       // Which channel to use on redis pub/sub for RPC communication
       channel: 'actionhero',
       // How long to wait for an RPC call before considering it a failure
       rpcTimeout: 5000,
+      // should CLI methods and help include internal ActionHero CLI methods?
+      cliIncludeInternal: true,
       // configuration for your actionhero project structure
       paths: {
         'action': [path.join(__dirname, '/../actions')],
@@ -48,6 +52,7 @@ exports.default = {
         'pid': [path.join(__dirname, '/../pids')],
         'log': [path.join(__dirname, '/../log')],
         'server': [path.join(__dirname, '/../servers')],
+        'cli': [path.join(__dirname, '/../bin')],
         'initializer': [path.join(__dirname, '/../initializers')],
         'plugin': [path.join(__dirname, '/../node_modules')],
         'locale': [path.join(__dirname, '/../locales')]
@@ -55,16 +60,37 @@ exports.default = {
       // hash containing chat rooms you wish to be created at server boot
       startingChatRooms: {
         // format is {roomName: {authKey, authValue}}
-        // 'secureRoom': {authorized: true}
+        // 'secureRoom': {authorized: true},
         chat: {authorized: true}
       }
     }
   }
 }
 
+// exports.test = {
+//   general: (api) => {
+//     return {
+//       id: `test-server-${process.env.JEST_WORKER_ID || 0}`,
+//       serverToken: `serverToken-${process.env.JEST_WORKER_ID || 0}`,
+//       developmentMode: true,
+//       startingChatRooms: {
+//         'defaultRoom': {},
+//         'otherRoom': {}
+//       },
+//       paths: {
+//         'locale': [
+//           path.join(__dirname, '..', 'locales')
+//         ]
+//       },
+//       rpcTimeout: 3000
+//     }
+//   }
+// }
+
 exports.production = {
-  general: function (api) {
+  general: (api) => {
     return {
+      // fileRequestLogLevel: 'debug',
       developmentMode: false
     }
   }
