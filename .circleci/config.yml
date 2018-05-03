@@ -36,9 +36,6 @@ jobs:
       - restore_cache:
           <<: *cache-options
       - run:
-          name: linter
-          command: ./node_modules/.bin/standard
-      - run:
           name: test-reporter-setup
           command: mkdir ./junit
       - run:
@@ -55,6 +52,9 @@ jobs:
       - run:
           name: create database
           command: mysql -e 'CREATE DATABASE TEST_DB' -u root --host 127.0.0.1
+      - run:
+          name: linter
+          command: ./node_modules/.bin/standard
       - run:
           name: test
           command: ./node_modules/.bin/mocha test --reporter mocha-junit-reporter
