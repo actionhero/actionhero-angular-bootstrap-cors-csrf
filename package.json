@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "actionhero": "^19.0.0",
-    "ah-resque-ui": "^0.5.4",
+    "ah-resque-ui": "^0.6.0",
     "bcrypt": "^2.0.0",
     "fakeredis": "^2.0.0",
     "ioredis": "^3.2.2",
