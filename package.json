@@ -16,7 +16,7 @@
     "ah-resque-ui": "^0.6.0",
     "bcrypt": "^2.0.0",
     "fakeredis": "^2.0.0",
-    "ioredis": "^3.2.2",
+    "ioredis": "^4.0.0",
     "mysql2": "^1.5.2",
     "sequelize": "^4.34.1",
     "ws": "^6.0.0"
