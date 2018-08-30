@@ -1,4 +1,4 @@
-const {Action, api} = require('actionhero')
+const { Action, api } = require('actionhero')
 
 exports.UserCreate = class UserCreate extends Action {
   constructor () {
@@ -38,7 +38,7 @@ exports.UserView = class UserView extends Action {
   }
 
   async run (data) {
-    let user = await api.models.user.findOne({where: {id: data.session.userId}})
+    let user = await api.models.user.findOne({ where: { id: data.session.userId } })
     if (!user) { throw new Error('user not found') }
     data.response.user = user.apiData(api)
   }
@@ -59,7 +59,7 @@ exports.UserEdit = class UserEdit extends Action {
   }
 
   async run (data) {
-    let user = await api.models.user.findOne({where: {id: data.session.userId}})
+    let user = await api.models.user.findOne({ where: { id: data.session.userId } })
     if (!user) { throw new Error('user not found') }
 
     await user.updateAttributes(data.params)

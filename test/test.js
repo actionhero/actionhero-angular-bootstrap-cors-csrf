@@ -88,7 +88,7 @@ describe('general:applicaiton', () => {
   })
 
   it('can view my user', async () => {
-    connection.params = {csrfToken: csrfToken}
+    connection.params = { csrfToken: csrfToken }
     let response = await api.specHelper.runAction('user:view', connection)
     should.not.exist(response.error)
     should.exist(response.user)

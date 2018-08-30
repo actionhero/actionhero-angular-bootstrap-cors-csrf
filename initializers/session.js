@@ -1,6 +1,6 @@
 const crypto = require('crypto')
 const util = require('util')
-const {Initializer, api} = require('actionhero')
+const { Initializer, api } = require('actionhero')
 
 module.exports = class SessionInitializer extends Initializer {
   constructor () {
@@ -34,7 +34,7 @@ module.exports = class SessionInitializer extends Initializer {
           sesionCreatedAt: new Date().getTime()
         }
 
-        await user.updateAttributes({lastLoginAt: new Date()})
+        await user.updateAttributes({ lastLoginAt: new Date() })
         await redis.set(key, JSON.stringify(sessionData))
         await redis.expire(key, api.session.ttl)
         return sessionData
