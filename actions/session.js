@@ -1,4 +1,4 @@
-const {Action, api} = require('actionhero')
+const { Action, api } = require('actionhero')
 
 exports.SessionCreate = class SessionCreate extends Action {
   constructor () {
@@ -13,7 +13,7 @@ exports.SessionCreate = class SessionCreate extends Action {
 
   async run (data) {
     data.response.success = false
-    let user = await api.models.user.findOne({where: {email: data.params.email}})
+    let user = await api.models.user.findOne({ where: { email: data.params.email } })
     if (!user) { throw new Error('user not found') }
 
     let match = await user.checkPassword(data.params.password)
@@ -54,7 +54,7 @@ exports.SessionCheck = class SessionCheck extends Action {
     let sessionData = await api.session.load(data.connection)
     if (!sessionData) { throw new Error('Please log in to continue') }
 
-    let user = await api.models.user.findOne({where: {id: sessionData.userId}})
+    let user = await api.models.user.findOne({ where: { id: sessionData.userId } })
     if (!user) { throw new Error('user not found') }
 
     data.response.user = user.apiData(api)

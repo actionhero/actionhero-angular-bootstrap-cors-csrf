@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const Sequelize = require('sequelize')
-const {Initializer, api} = require('actionhero')
+const { Initializer, api } = require('actionhero')
 
 module.exports = class SequelizeInitializer extends Initializer {
   constructor () {

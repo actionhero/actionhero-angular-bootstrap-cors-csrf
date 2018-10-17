@@ -1,4 +1,4 @@
-const {Task, api} = require('actionhero')
+const { Task, api } = require('actionhero')
 
 exports.task = class Clock extends Task {
   constructor () {
@@ -10,6 +10,6 @@ exports.task = class Clock extends Task {
   }
 
   async run (params) {
-    await api.chatRoom.broadcast({id: 'CLOCK'}, 'chat', `the time is: ${new Date()}`)
+    await api.chatRoom.broadcast({ id: 'CLOCK' }, 'chat', `the time is: ${new Date()}`)
   }
 }

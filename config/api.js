@@ -61,7 +61,7 @@ exports['default'] = {
       startingChatRooms: {
         // format is {roomName: {authKey, authValue}}
         // 'secureRoom': {authorized: true},
-        chat: {authorized: true}
+        chat: { authorized: true }
       }
     }
   }
