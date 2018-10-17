@@ -60,7 +60,7 @@ describe('general:applicaiton', () => {
       password: 'otherpassword'
     }
     let response = await api.specHelper.runAction('user:create', connection)
-    response.error.should.equal('Error: users_email must be unique')
+    should.exist(response.error)
     should.not.exist(response.user)
   })
 

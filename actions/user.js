@@ -16,13 +16,7 @@ exports.UserCreate = class UserCreate extends Action {
   async run (data) {
     let user = await api.models.user.build(data.params)
     await user.updatePassword(data.params.password)
-
-    try {
-      await user.save()
-    } catch (error) {
-      throw error.errors[0]
-    }
-
+    await user.save()
     await user.reload()
     data.response.user = user.apiData(api)
   }

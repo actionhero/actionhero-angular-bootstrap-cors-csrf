@@ -1,5 +1,5 @@
 var bcrypt = require('bcrypt')
-var bcryptComplexity = 10
+var bcryptSaltRounds = 10
 
 module.exports = function (sequelize, DataTypes) {
   const User = sequelize.define('User', {
@@ -9,10 +9,6 @@ module.exports = function (sequelize, DataTypes) {
       validate: { isEmail: true }
     },
     'passwordHash': {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    'passwordSalt': {
       type: DataTypes.TEXT,
       allowNull: false
     },
@@ -42,10 +38,8 @@ module.exports = function (sequelize, DataTypes) {
   }
 
   User.prototype.updatePassword = async function (password) {
-    let salt = await bcrypt.genSalt(bcryptComplexity)
-    let hash = await bcrypt.hash(password, salt)
+    let hash = await bcrypt.hash(password, bcryptSaltRounds)
     this.passwordHash = hash
-    this.passwordSalt = salt
   }
 
   User.prototype.checkPassword = async function (password, callback) {
