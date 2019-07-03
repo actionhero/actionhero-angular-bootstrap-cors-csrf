@@ -19,7 +19,8 @@
     "ioredis": "^4.1.0",
     "mysql2": "^1.6.1",
     "sequelize": "^4.39.1",
-    "ws": "^6.1.0"
+    "ws": "^6.1.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "mocha": "^5.2.0",
@@ -45,6 +46,9 @@
     "actionhero": "actionhero",
     "startCluster": "actionhero startCluster",
     "pretest": "standard",
-    "test": "NODE_ENV=test mocha"
-  }
+    "test": "NODE_ENV=test mocha",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "snyk": true
 }
