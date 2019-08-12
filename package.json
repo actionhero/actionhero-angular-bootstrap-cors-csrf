@@ -19,7 +19,7 @@
     "ioredis": "^4.1.0",
     "mysql2": "^1.6.1",
     "sequelize": "^4.39.1",
-    "ws": "^6.1.0"
+    "ws": "^7.1.2"
   },
   "devDependencies": {
     "mocha": "^5.2.0",
