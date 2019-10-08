@@ -5,12 +5,12 @@ exports['default'] = {
       // internal values or from hostOverride and portOverride.
       baseUrl: process.env.NODE_ENV === 'production' ? 'angular.actionherojs.com' : null,
       // Specify routes that don't need to be displayed
-      ignoreRoutes: [ '/swagger' ],
+      ignoreRoutes: ['/swagger'],
       // Specify how routes are grouped
       routeTags: {
-        'server': [ 'docs', 'status' ],
-        'user': [ 'user' ],
-        'session': [ 'session' ]
+        server: ['docs', 'status'],
+        user: ['user'],
+        session: ['session']
       },
       // Generate documentation for simple actions specified by action-name
       documentSimpleRoutes: false,

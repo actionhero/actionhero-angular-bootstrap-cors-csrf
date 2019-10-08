@@ -3,24 +3,24 @@ var bcryptSaltRounds = 10
 
 module.exports = function (sequelize, DataTypes) {
   const User = sequelize.define('User', {
-    'email': {
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: { isEmail: true }
     },
-    'passwordHash': {
+    passwordHash: {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    'firstName': {
+    firstName: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    'lastName': {
+    lastName: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    'lastLoginAt': {
+    lastLoginAt: {
       type: DataTypes.DATE,
       allowNull: true
     }
@@ -38,7 +38,7 @@ module.exports = function (sequelize, DataTypes) {
   }
 
   User.prototype.updatePassword = async function (password) {
-    let hash = await bcrypt.hash(password, bcryptSaltRounds)
+    const hash = await bcrypt.hash(password, bcryptSaltRounds)
     this.passwordHash = hash
   }
 

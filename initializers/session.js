@@ -18,7 +18,7 @@ module.exports = class SessionInitializer extends Initializer {
       load: async (connection) => {
         const key = api.session.prefix + connection.fingerprint
 
-        let data = await redis.get(key)
+        const data = await redis.get(key)
         if (!data) { return false }
         return JSON.parse(data)
       },

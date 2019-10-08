@@ -4,13 +4,13 @@
 
 var routes = [
   // ROUTE        PAGE PARTIAL                  PAGE TITLE    REQUIRE LOGIN?
-  [ '/', 'pages/index.html', 'Demo Site!', false ],
-  [ '/about', 'pages/about.html', 'About', false ],
-  [ '/login', 'pages/session/create.html', 'Log In', false ],
-  [ '/logout', 'pages/session/destroy.html', 'Log Out', false ],
-  [ '/dashboard', 'pages/dashboard.html', 'Dashboard', true ],
-  [ '/sign-up', 'pages/user/create.html', 'Sign Up', false ],
-  [ '/settings', 'pages/user/edit.html', 'Edit User', true ]
+  ['/', 'pages/index.html', 'Demo Site!', false],
+  ['/about', 'pages/about.html', 'About', false],
+  ['/login', 'pages/session/create.html', 'Log In', false],
+  ['/logout', 'pages/session/destroy.html', 'Log Out', false],
+  ['/dashboard', 'pages/dashboard.html', 'Dashboard', true],
+  ['/sign-up', 'pages/user/create.html', 'Sign Up', false],
+  ['/settings', 'pages/user/edit.html', 'Edit User', true]
 ]
 
 // //////////////
@@ -25,8 +25,8 @@ app.config(function ($routeProvider, $locationProvider) {
     var page = collection[1]
     var title = collection[2]
     $routeProvider.when(route, {
-      'templateUrl': page,
-      'pageTitle': title
+      templateUrl: page,
+      pageTitle: title
     })
   })
 })

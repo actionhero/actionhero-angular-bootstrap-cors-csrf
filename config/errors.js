@@ -4,7 +4,7 @@
 exports['default'] = {
   errors: function (api) {
     return {
-      '_toExpand': false,
+      _toExpand: false,
 
       // ///////////////
       // SERIALIZERS //

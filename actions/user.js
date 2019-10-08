@@ -14,7 +14,7 @@ exports.UserCreate = class UserCreate extends Action {
   }
 
   async run (data) {
-    let user = await api.models.user.build(data.params)
+    const user = await api.models.user.build(data.params)
     await user.updatePassword(data.params.password)
     await user.save()
     await user.reload()
@@ -27,12 +27,12 @@ exports.UserView = class UserView extends Action {
     super()
     this.name = 'user:view'
     this.description = this.name
-    this.middleware = [ 'logged-in-session' ]
+    this.middleware = ['logged-in-session']
     this.inputs = {}
   }
 
   async run (data) {
-    let user = await api.models.user.findOne({ where: { id: data.session.userId } })
+    const user = await api.models.user.findOne({ where: { id: data.session.userId } })
     if (!user) { throw new Error('user not found') }
     data.response.user = user.apiData(api)
   }
@@ -43,7 +43,7 @@ exports.UserEdit = class UserEdit extends Action {
     super()
     this.name = 'user:edit'
     this.description = this.name
-    this.middleware = [ 'logged-in-session' ]
+    this.middleware = ['logged-in-session']
     this.inputs = {
       email: { required: false },
       password: { required: false },
@@ -53,7 +53,7 @@ exports.UserEdit = class UserEdit extends Action {
   }
 
   async run (data) {
-    let user = await api.models.user.findOne({ where: { id: data.session.userId } })
+    const user = await api.models.user.findOne({ where: { id: data.session.userId } })
     if (!user) { throw new Error('user not found') }
 
     await user.updateAttributes(data.params)
